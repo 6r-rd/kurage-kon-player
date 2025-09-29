@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeAll, afterAll } from 'vitest';
-import { parseTimestamps, findOrCreateSong } from '../../updateVideoData.js';
+import { parseTimestamps, findOrCreateSong, findSongByTitleOnly } from '../../updateVideoData.js';
 import * as generateVideosList from '../../generateVideosList.js';
 
 // Mock the generateVideosList function to prevent it from being called during tests
@@ -111,5 +111,41 @@ describe('Artistless Timestamps', () => {
     // Check last timestamp with artist
     expect(result[4].song_title).toBe('神のまにまに');
     expect(result[4].artist_name).toBe('れるりり');
+  });
+
+  it('matches artistless timestamps to existing songs by title order', () => {
+    const songs = [
+      {
+        song_id: 'song-1',
+        title: 'Clear',
+        artist_ids: ['artist-a']
+      },
+      {
+        song_id: 'song-2',
+        title: 'Clear',
+        artist_ids: ['artist-b']
+      },
+      {
+        song_id: 'song-3',
+        title: 'プラチナ',
+        artist_ids: [],
+        alternate_titles: ['Platina']
+      }
+    ];
+
+    const matchExact = findSongByTitleOnly('Clear', songs);
+    expect(matchExact?.song_id).toBe('song-1');
+
+    const matchAlt = findSongByTitleOnly('Platina', songs);
+    expect(matchAlt?.song_id).toBe('song-3');
+
+    const { songId, isNew } = findOrCreateSong(
+      'Clear',
+      matchExact?.artist_ids ?? [],
+      songs
+    );
+
+    expect(isNew).toBe(false);
+    expect(songId).toBe('song-1');
   });
 });

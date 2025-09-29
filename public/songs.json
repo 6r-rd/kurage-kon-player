@@ -1870,13 +1870,6 @@
       ]
     },
     {
-      "song_id": "E-q6cXQeHF9",
-      "title": "Calc.",
-      "artist_ids": [
-        "RmK8qTvZofJ"
-      ]
-    },
-    {
       "song_id": "zW0b2eJHClw",
       "title": "from Y to Y",
       "artist_ids": [
@@ -2082,13 +2075,6 @@
     {
       "song_id": "flxWxpFAflL",
       "title": "ユクエシレズ",
-      "artist_ids": [
-        "yom6uTq8fT-"
-      ]
-    },
-    {
-      "song_id": "IgLvKZ20zvy",
-      "title": "臨海ダイバー",
       "artist_ids": [
         "yom6uTq8fT-"
       ]
@@ -3650,12 +3636,16 @@
     {
       "song_id": "VQvjfgQ7iES",
       "title": "ア・ホール・ニュー・ワールド",
-      "artist_ids": []
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
     },
     {
       "song_id": "b_tEon-l4lj",
       "title": "アノーイング！さんさんウィーク！",
-      "artist_ids": []
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
     },
     {
       "song_id": "BGMe9q2eFJa",
@@ -3665,7 +3655,821 @@
     {
       "song_id": "UgcLa-7ZIAT",
       "title": "となりのトトロ",
-      "artist_ids": []
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "x9aZUW8u079",
+      "title": "再会の終わり",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "EIYoK6JASVx",
+      "title": "夏果て",
+      "artist_ids": [
+        "CpwKmsZU45F"
+      ]
+    },
+    {
+      "song_id": "MbpZ-l5y2UA",
+      "title": "夕映え",
+      "artist_ids": [
+        "CpwKmsZU45F"
+      ]
+    },
+    {
+      "song_id": "P-JwdxPbG5E",
+      "title": "出来心",
+      "artist_ids": [
+        "E1cKfkSRT6O"
+      ]
+    },
+    {
+      "song_id": "FATEYCSwCS7",
+      "title": "臨界ダイバー",
+      "artist_ids": [
+        "yom6uTq8fT-"
+      ]
+    },
+    {
+      "song_id": "NsdbqLx-Hsn",
+      "title": "stay (VocaDuo2025オリ曲)",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "LeQTGNtOZks",
+      "title": "冷たい花",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "OkYtiAATxHj",
+      "title": "There will be love there-愛のある場所-",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "KkWfLi0-WIk",
+      "title": "メロウ",
+      "artist_ids": [
+        "qcECb6eyQtk"
+      ]
+    },
+    {
+      "song_id": "N7ab-yt739P",
+      "title": "cold rain",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "4eQummsZweZ",
+      "title": "starfall",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "Gw61G2B6gav",
+      "title": "雨のち晴れのち青/青春性同位体 (紺ちゃんVocaDuo2025オリ曲)",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "ZussngTZAs7",
+      "title": "SNOOZZZ…/ふわふわお布団部 (茨むあんちゃんVocaDuo2025オリ曲)",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "RjJyCgKqeQl",
+      "title": "神様が見ているなら/残酷な怪物 (みたにみくちゃんVocaDuo2025オリ曲)",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "1-bG4046lGF",
+      "title": "starfall/星降る夜と猫の夢 (紺ちゃんVocaDuo2025オリ曲)",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "NmhxDVd3Bh1",
+      "title": "SNOOZZZ•••🐈‍⬛",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "q_l08FxsbXA",
+      "title": "🌌starfall💫",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "z2WLwUwr3OV",
+      "title": "独りんぼエンヴィー",
+      "artist_ids": [
+        "5_iEBdLUnYh"
+      ]
+    },
+    {
+      "song_id": "AnEH6NsJ5WH",
+      "title": "箱庭 ～ミニチュアガーデン～",
+      "artist_ids": [
+        "NXrgpkiZgbo"
+      ]
+    },
+    {
+      "song_id": "xffTLm3hGIH",
+      "title": "BOW AND ARROW",
+      "artist_ids": [
+        "h8AJHKAtN89"
+      ]
+    },
+    {
+      "song_id": "o3JBTu45pKx",
+      "title": "エンパープル",
+      "artist_ids": [
+        "YSceYhlonUS"
+      ]
+    },
+    {
+      "song_id": "HDMBt9QMLtW",
+      "title": "おやすみ泣き声、さよなら歌姫",
+      "artist_ids": [
+        "uvFunh-TTdt"
+      ]
+    },
+    {
+      "song_id": "ohB372pGcO1",
+      "title": "雨のち晴れのち青 (VocaDuo2025オリ曲)",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "9rU9WxeTIdh",
+      "title": "starfall (VocaDuo2025オリ曲)",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "Vk1VzK6RLje",
+      "title": "game of life",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "L1K4_syZoF6",
+      "title": "U&I",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "cOuiXcjRA5C",
+      "title": "ヨワネハキ",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "b7JkHopEv3s",
+      "title": "天使にふれたよ!",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "AW0kVpqwQwg",
+      "title": "群青",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "BJuUViQzNXK",
+      "title": "青い珊瑚礁",
+      "artist_ids": [
+        "RTZ4K__u2qc"
+      ]
+    },
+    {
+      "song_id": "NfKw-18KjAZ",
+      "title": "青のすみか",
+      "artist_ids": [
+        "62EEJMMl1CN"
+      ]
+    },
+    {
+      "song_id": "WFYsa7qoxbK",
+      "title": "アンパンマンマーチ",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "T1R2zmNH1Ol",
+      "title": "フクロウ ～フクロウが知らせる客が来たと～",
+      "artist_ids": [
+        "WlGHFtnIjhp"
+      ]
+    },
+    {
+      "song_id": "siJqWJt2pLa",
+      "title": "天樂🥦👹",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "b0p4h2hWdAn",
+      "title": "神のまにまに👹🐈‍⬛",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "gknOV2-rOiO",
+      "title": "君の銀の庭🥦👹🐈‍⬛",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "DR-SEiXsHVU",
+      "title": "アポリア",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "cWOcbtZaJ0e",
+      "title": "ようこそジャパリパークへ",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "wdoWTEmjeBA",
+      "title": "ギターと孤独と蒼い惑星を聴く/結束バンド",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "ENQ_ZTWuJFZ",
+      "title": "より先着にて販売開始",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "s6rlKO3_CL6",
+      "title": "Hello, Worker",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "jAHBzHCn3jL",
+      "title": "光と闇-弾き語りver-",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "avqCiFb-ZgP",
+      "title": "待機画面",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "GOCdr3pkM4g",
+      "title": "マツケンサンバII",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "zfwQmDXPlfd",
+      "title": "storia（やり直し）",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "32o3gdM9rYl",
+      "title": "夜明けと蛍-Acoustic Ver.-",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "uCjCK43da2_",
+      "title": "ごはんはおかず",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "Q0Ad5zDBH5Q",
+      "title": "にんげんっていいな",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "Rf8xKf4AGis",
+      "title": "夜明けと蛍-Piano Ver.-",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "E_S1IuruYIb",
+      "title": "天ノ弱-Piano Ver.-",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "zGiP8yFligh",
+      "title": "小夜子-Piano Ver.-",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "WTx6nb07AVJ",
+      "title": "1925-Piano Ver.-",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "7ErNwANy3gs",
+      "title": "マジLOVE1000%",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "oblplSKCgi8",
+      "title": "嗤うマネキン",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "eHeYPa8cxdc",
+      "title": "StarRngChild",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "y-icSsHm6cM",
+      "title": "KICK BACK",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "nGV2VDfEdMf",
+      "title": "忘れじの言の葉",
+      "artist_ids": [
+        "8awBvFKYjwU"
+      ]
+    },
+    {
+      "song_id": "GWdpla8ndVR",
+      "title": "Asterism",
+      "artist_ids": [
+        "QpMeSCdWBaQ"
+      ]
+    },
+    {
+      "song_id": "MDCJMAi2MN-",
+      "title": "start",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "C_TS3SoeyZ2",
+      "title": "透明少年",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "39_MCMUgQMU",
+      "title": "ド屑",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "8Cgd4GLUERw",
+      "title": "丸の内サディスティック-Piano Ver.-",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "iTdtTavHFiC",
+      "title": "glow-Piano Ver.-",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "2gv3hboN-q1",
+      "title": "アスノヨゾラ哨戒班-Piano Ver.-",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "HVbh0mo-6LJ",
+      "title": "秒針を噛む-Piano Ver.-",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "1C_feF8gZym",
+      "title": "nineline",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "nl-d_5OLcUN",
+      "title": "海の声",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "DIWvNY4i4G5",
+      "title": "SUN",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "HhRBRfl5dRL",
+      "title": "貓",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "ZjPzZEEZbD0",
+      "title": "ルームNo.4",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "qOwuPdOl53p",
+      "title": "はじめてのチュウ",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "71jOLM1Ai9l",
+      "title": "うまぴょい伝説",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "goyjHRCbdvx",
+      "title": "サリシノハラ-Piano Ver.-",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "eSolOtVRfAO",
+      "title": "ゴーストルール",
+      "artist_ids": [
+        "CByMooq86tf"
+      ]
+    },
+    {
+      "song_id": "s7sW0HGf5Bw",
+      "title": "アトラクトライト",
+      "artist_ids": [
+        "5B3fy5HaE0N"
+      ]
+    },
+    {
+      "song_id": "emoFH7KdRiZ",
+      "title": "愛に奇術師",
+      "artist_ids": [
+        "DrP-hUU4Nvn"
+      ]
+    },
+    {
+      "song_id": "wAO84C0m-q6",
+      "title": "タイムマシン-Piano Ver.-",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "RkP7FHDjUWc",
+      "title": "月光",
+      "artist_ids": [
+        "nEGfhIeOsVd"
+      ]
+    },
+    {
+      "song_id": "svnk0ChHhko",
+      "title": "阿吽のビーツ",
+      "artist_ids": [
+        "cB4_hh9a8Qr"
+      ]
+    },
+    {
+      "song_id": "8xDw05AGDk6",
+      "title": "メニュー",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "F_mkaO3_gQu",
+      "title": "睡蓮花",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "H3scEXeDjWm",
+      "title": "ハム太郎 とっとこうた",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "SPyJv74wGEd",
+      "title": "Surges (1番だけ)",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "PoF8-To7jSc",
+      "title": "神っぱいな",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "oGdCE_ycuDf",
+      "title": "Surges (β版)",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "nTZddcH-6pS",
+      "title": "お料理行進曲",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "AXSxHpsxdFa",
+      "title": "月に吠える",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "5BUCvbVPysD",
+      "title": "グリグリメガネと月光園",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "MXLYDOB6wPR",
+      "title": "丸の内サディステック",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "KH2n974gbE_",
+      "title": "サヨナラCOLOR",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "raEfF50BpH8",
+      "title": "花に雨を君に歌を",
+      "artist_ids": [
+        "OFtLn1vmd79"
+      ]
+    },
+    {
+      "song_id": "pRobgyHUP1z",
+      "title": "ROCKET DIVE",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "Nal45viQ9Qx",
+      "title": "天城越え",
+      "artist_ids": [
+        "2L-QY8LrsDk"
+      ]
+    },
+    {
+      "song_id": "Pio60Vd4QtD",
+      "title": "Butterfly Kiss",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "83O2J1hApJX",
+      "title": "鳥の詩",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "U3UR2hmwvjy",
+      "title": "Get Wild",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "UH_0RBIY1Q6",
+      "title": "WON'T BE LONG",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "Ckz7o8VTjWt",
+      "title": "すぎっ!",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "m60DPjf8vSX",
+      "title": "永遠のあくる日",
+      "artist_ids": [
+        "zdVjralPpzD"
+      ]
+    },
+    {
+      "song_id": "AsxArz8EkrM",
+      "title": "パプリカ (β版)",
+      "artist_ids": [
+        "c4ZNWnMB2u5"
+      ]
+    },
+    {
+      "song_id": "-T6e983d2c-",
+      "title": "タイムマシン",
+      "artist_ids": [
+        "dBUAFaqrhW6"
+      ]
+    },
+    {
+      "song_id": "dV5QvIgpoLJ",
+      "title": "夜明けと蛍",
+      "artist_ids": [
+        "z2SjjlhN3zZ"
+      ]
+    },
+    {
+      "song_id": "Rl8se-i0l7r",
+      "title": "ライオン",
+      "artist_ids": [
+        "Jox69VHDTzo"
+      ]
+    },
+    {
+      "song_id": "uxwmNsEgw8l",
+      "title": "Calc.",
+      "artist_ids": [
+        "RmK8qTvZofJ"
+      ]
+    },
+    {
+      "song_id": "0s9wK8u6kup",
+      "title": "シュガーソングとビターステップ",
+      "artist_ids": [
+        "a_lPm56eUxF"
+      ]
+    },
+    {
+      "song_id": "oqlzwZ46YNN",
+      "title": "CHE.R.RY",
+      "artist_ids": [
+        "Iwy2LJ39cQc"
+      ]
+    },
+    {
+      "song_id": "KpYg9mi3tFh",
+      "title": "ロストエンファウンド",
+      "artist_ids": [
+        "YBHPaI9vPX4"
+      ]
+    },
+    {
+      "song_id": "8AELDiIrQBP",
+      "title": "紅",
+      "artist_ids": [
+        "3aU4utUbuBR"
+      ]
+    },
+    {
+      "song_id": "zDmwG_dzl3u",
+      "title": "はきだす",
+      "artist_ids": [
+        "Hrg2BKIY-By"
+      ]
+    },
+    {
+      "song_id": "dFmPJS2Ec8r",
+      "title": "世界は恋に落ちている",
+      "artist_ids": [
+        "94Ww3lNKT7D"
+      ]
+    },
+    {
+      "song_id": "lKzo6ighv7c",
+      "title": "クライヤ",
+      "artist_ids": [
+        "TRNKtG0DyKG"
+      ]
+    },
+    {
+      "song_id": "0PkCAZy2rLG",
+      "title": "リスキーゲーム",
+      "artist_ids": [
+        "XK_kWHBJfhe"
+      ]
+    },
+    {
+      "song_id": "7AgA8GhgrAM",
+      "title": "ユクエシレズ",
+      "artist_ids": [
+        "yom6uTq8fT-"
+      ]
+    },
+    {
+      "song_id": "R_QbVNcnWNa",
+      "title": "ワンダーランドと羊の歌",
+      "artist_ids": [
+        "RYAJ5Y5CRg3"
+      ]
+    },
+    {
+      "song_id": "LmXjJ4ddmc0",
+      "title": "格子の心臓",
+      "artist_ids": [
+        "rxwSjm1Vpx7"
+      ]
+    },
+    {
+      "song_id": "8YgViXtL9CQ",
+      "title": "秘密男女の関係",
+      "artist_ids": [
+        "rxwSjm1Vpx7"
+      ]
     }
   ]
 }

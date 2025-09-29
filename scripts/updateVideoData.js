@@ -311,8 +311,26 @@ function findOrCreateArtist(artistName, artists) {
  * @param {Array} songs - Existing songs
  * @returns {Object} Song ID and whether it was newly created
  */
+function findSongByTitleOnly(songTitle, songs) {
+  const normalizedTitle = songTitle.normalize('NFC').toLocaleLowerCase('ja');
+  
+  return songs.find(song => {
+    const songTitleNormalized = song.title.normalize('NFC').toLocaleLowerCase('ja');
+    if (songTitleNormalized === normalizedTitle) {
+      return true;
+    }
+    
+    if (!song.alternate_titles) {
+      return false;
+    }
+    
+    return song.alternate_titles.some(title =>
+      title.normalize('NFC').toLocaleLowerCase('ja') === normalizedTitle
+    );
+  });
+}
+
 function findOrCreateSong(songTitle, artistIds, songs) {
-  // Normalize song title for comparison
   const normalizedTitle = songTitle.normalize('NFC').toLocaleLowerCase('ja');
   
   // Check if song already exists
@@ -510,35 +528,44 @@ async function processVideo(videoId) {
     const newSongs = [];
     
     for (const timestamp of allTimestamps) {
-      // Check if artist name contains commas for multiple artists
-      const artistNames = timestamp.artist_name.includes(', ') || timestamp.artist_name.includes(',')
-        ? timestamp.artist_name.split(/,\s*/).map(name => name.trim())
-        : [timestamp.artist_name];
+      const allKnownSongs = [...songsData.songs, ...newSongs];
+      const trimmedArtistField = (timestamp.artist_name || '').trim();
+      let artistIds = [];
       
-      // Find or create each artist and collect their IDs
-      const artistIds = [];
-      
-      for (const artistName of artistNames) {
-        const { artistId, isNew: isNewArtist } = findOrCreateArtist(
-          artistName, 
-          [...artistsData.artists, ...newArtists]
-        );
+      if (trimmedArtistField) {
+        const artistNames = trimmedArtistField.includes(', ') || trimmedArtistField.includes(',')
+          ? trimmedArtistField.split(/,\s*/).map(name => name.trim()).filter(Boolean)
+          : [trimmedArtistField];
         
-        artistIds.push(artistId);
+        for (const artistName of artistNames) {
+          const { artistId, isNew: isNewArtist } = findOrCreateArtist(
+            artistName,
+            [...artistsData.artists, ...newArtists]
+          );
+          
+          if (!artistIds.includes(artistId)) {
+            artistIds.push(artistId);
+          }
+          
+          if (isNewArtist) {
+            newArtists.push({
+              artist_id: artistId,
+              name: artistName
+            });
+          }
+        }
+      } else {
+        const matchedSong = findSongByTitleOnly(timestamp.song_title, allKnownSongs);
         
-        if (isNewArtist) {
-          newArtists.push({
-            artist_id: artistId,
-            name: artistName
-          });
+        if (matchedSong) {
+          artistIds = [...(matchedSong.artist_ids || [])];
         }
       }
-      
-      // Find or create song
+
       const { songId, isNew: isNewSong } = findOrCreateSong(
         timestamp.song_title,
         artistIds,
-        [...songsData.songs, ...newSongs]
+        allKnownSongs
       );
       
       if (isNewSong) {
@@ -639,6 +666,7 @@ export {
   convertTimeToSeconds,
   parseTimestamps,
   findOrCreateArtist,
+  findSongByTitleOnly,
   findOrCreateSong,
   hasZeroTimestamp,
   processVideo,
