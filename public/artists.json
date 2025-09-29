@@ -54,7 +54,27 @@
     },
     {
       "artist_id": "pV5DeHjv6O8",
-      "name": "Team.タンスイカブツ（VocaDuo2024） 儚牙紺"
+      "name": "Team.タンスイカブツ (VocaDuo2024) 儚牙紺"
+    },
+    {
+      "artist_id": "CETLCjkND7j",
+      "name": "星降る夜と猫の夢 (VocaDuo2025) 儚牙紺"
+    },
+    {
+      "artist_id": "h9hXHknBjpB",
+      "name": " 泡沫ノ澪 (VocaDuo2025) 儚牙紺"
+    },
+    {
+      "artist_id": "sObPuhjMzYo",
+      "name": "青春性同位体 (VocaDuo2025) 儚牙紺"
+    },
+    {
+      "artist_id": "HNiTJQhGFjQ",
+      "name": "ふわふわお布団部 (VocaDuo2025) 茨むあん"
+    },
+    {
+      "artist_id": "gRkTkQoIiq-",
+      "name": "残酷な怪物 (VocaDuo2025) みたにみく"
     },
     {
       "artist_id": "KUh56R_EGxp",
@@ -673,6 +693,10 @@
       "name": "SawanoHiroyuki[nZk]:mizuki"
     },
     {
+      "artist_id": "57QnSjCjcxb",
+      "name": "SawanoHiroyuki[nZk]:Aimer"
+    },
+    {
       "artist_id": "dJW6oeY8xD-",
       "name": "Saucy Dog"
     },
@@ -1033,10 +1057,6 @@
       "name": "羽生まゐご"
     },
     {
-      "artist_id": "z2SjjlhN3zZ",
-      "name": "n-buna - piano ver. Arranged"
-    },
-    {
       "artist_id": "Jox69VHDTzo",
       "name": "May'n / 中島愛"
     },
@@ -1079,6 +1099,82 @@
     {
       "artist_id": "RTZ4K__u2qc",
       "name": "松田聖子"
+    },
+    {
+      "artist_id": "X8Ujwxa3enC",
+      "name": "Foorin"
+    },
+    {
+      "artist_id": "McuG4S3HhDK",
+      "name": "米倉千尋"
+    },
+    {
+      "artist_id": "5mkv4scortC",
+      "name": "Lia"
+    },
+    {
+      "artist_id": "kbl4G4i03o9",
+      "name": "TM Network"
+    },
+    {
+      "artist_id": "8V2e5_6AB4G",
+      "name": "湘南乃風"
+    },
+    {
+      "artist_id": "-ovDzpaD4y-",
+      "name": "バブルガム・ブラザーズ"
+    },
+    {
+      "artist_id": "cNs0pS-qkOG",
+      "name": "超ときめき宣伝部"
+    },
+    {
+      "artist_id": "VPn4VSBQPH3",
+      "name": "あんしんパパ"
+    },
+    {
+      "artist_id": "o0zkZKdLCcH",
+      "name": "星野源"
+    },
+    {
+      "artist_id": "IOR_c9tDVHM",
+      "name": "浦島太郎 (桐谷健太)"
+    },
+    {
+      "artist_id": "kCUHayvDuUx",
+      "name": "hide with Spread Beaver"
+    },
+    {
+      "artist_id": "iNE6eLmNH0o",
+      "name": "YUKA"
+    },
+    {
+      "artist_id": "4thuu4Oh7b_",
+      "name": "SUPER BUTTER DOG"
+    },
+    {
+      "artist_id": "g4BTVworM_N",
+      "name": "松平健"
+    },
+    {
+      "artist_id": "Rd_gh6Q7s7t",
+      "name": "ナポリP"
+    },
+    {
+      "artist_id": "FHbC_ENRo04",
+      "name": "ST☆RISH"
+    },
+    {
+      "artist_id": "9UoURcuqwGx",
+      "name": "どうぶつビスケッツ×ppp"
+    },
+    {
+      "artist_id": "igXxAp_QmiL",
+      "name": "なきそ"
+    },
+    {
+      "artist_id": "_8FVgOLzsYg",
+      "name": "ササノマリイ"
     }
   ]
 }
