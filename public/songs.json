@@ -78,20 +78,6 @@
       ]
     },
     {
-      "song_id": "1sUhZKEZVAG",
-      "title": "夏果て",
-      "artist_ids": [
-        "CpwKmsZU45F"
-      ]
-    },
-    {
-      "song_id": "vOnsudSGalA",
-      "title": "夕映え",
-      "artist_ids": [
-        "CpwKmsZU45F"
-      ]
-    },
-    {
       "song_id": "kjwZgOBFff-",
       "title": "Asterism",
       "artist_ids": [
@@ -222,13 +208,6 @@
       "title": "If",
       "artist_ids": [
         "AeBUPR77mWi"
-      ]
-    },
-    {
-      "song_id": "GFrbsQmev-s",
-      "title": "忘れじの言の葉",
-      "artist_ids": [
-        "9Z3IHy_axz6"
       ]
     },
     {
@@ -444,13 +423,6 @@
     {
       "song_id": "LMNskQWQZSB",
       "title": "蝶",
-      "artist_ids": [
-        "NXrgpkiZgbo"
-      ]
-    },
-    {
-      "song_id": "wYtGhPoauLa",
-      "title": "箱庭〜ミニチュアガーデン〜",
       "artist_ids": [
         "NXrgpkiZgbo"
       ]
@@ -887,13 +859,6 @@
       "title": "運命開花",
       "artist_ids": [
         "wkfZnYSOQ4m"
-      ]
-    },
-    {
-      "song_id": "YdUXBzx3rcb",
-      "title": "​​月光",
-      "artist_ids": [
-        "nEGfhIeOsVd"
       ]
     },
     {
@@ -3809,13 +3774,6 @@
       ]
     },
     {
-      "song_id": "WFYsa7qoxbK",
-      "title": "アンパンマンマーチ",
-      "artist_ids": [
-        "c4ZNWnMB2u5"
-      ]
-    },
-    {
       "song_id": "T1R2zmNH1Ol",
       "title": "フクロウ ～フクロウが知らせる客が来たと～",
       "artist_ids": [
@@ -3900,13 +3858,6 @@
       ]
     },
     {
-      "song_id": "GWdpla8ndVR",
-      "title": "Asterism",
-      "artist_ids": [
-        "QpMeSCdWBaQ"
-      ]
-    },
-    {
       "song_id": "39_MCMUgQMU",
       "title": "ド屑",
       "artist_ids": [
@@ -3949,31 +3900,10 @@
       ]
     },
     {
-      "song_id": "s7sW0HGf5Bw",
-      "title": "アトラクトライト",
-      "artist_ids": [
-        "5B3fy5HaE0N"
-      ]
-    },
-    {
-      "song_id": "emoFH7KdRiZ",
-      "title": "愛に奇術師",
-      "artist_ids": [
-        "DrP-hUU4Nvn"
-      ]
-    },
-    {
       "song_id": "RkP7FHDjUWc",
       "title": "月光",
       "artist_ids": [
         "nEGfhIeOsVd"
-      ]
-    },
-    {
-      "song_id": "svnk0ChHhko",
-      "title": "阿吽のビーツ",
-      "artist_ids": [
-        "cB4_hh9a8Qr"
       ]
     },
     {
@@ -4061,20 +3991,6 @@
       ]
     },
     {
-      "song_id": "AsxArz8EkrM",
-      "title": "パプリカ",
-      "artist_ids": [
-        "X8Ujwxa3enC"
-      ]
-    },
-    {
-      "song_id": "Rl8se-i0l7r",
-      "title": "ライオン",
-      "artist_ids": [
-        "Jox69VHDTzo"
-      ]
-    },
-    {
       "song_id": "uxwmNsEgw8l",
       "title": "Calc.",
       "artist_ids": [
@@ -4096,13 +4012,6 @@
       ]
     },
     {
-      "song_id": "KpYg9mi3tFh",
-      "title": "ロストエンファウンド",
-      "artist_ids": [
-        "YBHPaI9vPX4"
-      ]
-    },
-    {
       "song_id": "8AELDiIrQBP",
       "title": "紅",
       "artist_ids": [
@@ -4114,55 +4023,6 @@
       "title": "はきだす",
       "artist_ids": [
         "Hrg2BKIY-By"
-      ]
-    },
-    {
-      "song_id": "dFmPJS2Ec8r",
-      "title": "世界は恋に落ちている",
-      "artist_ids": [
-        "94Ww3lNKT7D"
-      ]
-    },
-    {
-      "song_id": "lKzo6ighv7c",
-      "title": "クライヤ",
-      "artist_ids": [
-        "TRNKtG0DyKG"
-      ]
-    },
-    {
-      "song_id": "0PkCAZy2rLG",
-      "title": "リスキーゲーム",
-      "artist_ids": [
-        "XK_kWHBJfhe"
-      ]
-    },
-    {
-      "song_id": "7AgA8GhgrAM",
-      "title": "ユクエシレズ",
-      "artist_ids": [
-        "yom6uTq8fT-"
-      ]
-    },
-    {
-      "song_id": "R_QbVNcnWNa",
-      "title": "ワンダーランドと羊の歌",
-      "artist_ids": [
-        "RYAJ5Y5CRg3"
-      ]
-    },
-    {
-      "song_id": "LmXjJ4ddmc0",
-      "title": "格子の心臓",
-      "artist_ids": [
-        "rxwSjm1Vpx7"
-      ]
-    },
-    {
-      "song_id": "8YgViXtL9CQ",
-      "title": "秘密男女の関係",
-      "artist_ids": [
-        "rxwSjm1Vpx7"
       ]
     }
   ]
