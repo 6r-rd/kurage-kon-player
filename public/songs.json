@@ -18,6 +18,7 @@
       "song_id": "M7J1PtAQC7A",
       "title": "レイメイ",
       "artist_ids": [
+        "EW4g_xgnCrs",
         "Ls9YXvbNAKQ"
       ]
     },
@@ -224,7 +225,8 @@
       "song_id": "vfb42PdqQ58",
       "title": "灰色と青",
       "artist_ids": [
-        "0y0rBBUoZ0l"
+        "h8AJHKAtN89",
+        "NCgteymrmPP"
       ]
     },
     {
@@ -3111,7 +3113,8 @@
       "song_id": "5y5O4HptLAc",
       "title": "打上花火",
       "artist_ids": [
-        "aaf6WixirF1"
+        "6dFUV7YHDgU",
+        "h8AJHKAtN89"
       ]
     },
     {
@@ -4051,6 +4054,20 @@
       "title": "はきだす",
       "artist_ids": [
         "Hrg2BKIY-By"
+      ]
+    },
+    {
+      "song_id": "krkEsHlYcU3",
+      "title": "フォニィ",
+      "artist_ids": [
+        "xsmlYSmfdYX"
+      ]
+    },
+    {
+      "song_id": "utwRhpZJt-n",
+      "title": "乙女解剖",
+      "artist_ids": [
+        "CByMooq86tf"
       ]
     }
   ]

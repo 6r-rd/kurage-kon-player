@@ -10,7 +10,7 @@
     },
     {
       "artist_id": "Ls9YXvbNAKQ",
-      "name": "さユり×MY FIRST STORY"
+      "name": "MY FIRST STORY"
     },
     {
       "artist_id": "qwcuqYHLNMn",
@@ -127,10 +127,6 @@
     {
       "artist_id": "kiQbO6Unlh4",
       "name": "歩く人"
-    },
-    {
-      "artist_id": "0y0rBBUoZ0l",
-      "name": "米津玄師, 菅田将暉"
     },
     {
       "artist_id": "h8AJHKAtN89",
@@ -933,10 +929,6 @@
       "name": "DATEKEN"
     },
     {
-      "artist_id": "aaf6WixirF1",
-      "name": "DAOKO, 米津玄師"
-    },
-    {
       "artist_id": "pBna2dgbPRd",
       "name": "ClariS"
     },
@@ -1131,6 +1123,10 @@
     {
       "artist_id": "_8FVgOLzsYg",
       "name": "ササノマリイ"
+    },
+    {
+      "artist_id": "6dFUV7YHDgU",
+      "name": "DAOKO"
     }
   ]
 }
