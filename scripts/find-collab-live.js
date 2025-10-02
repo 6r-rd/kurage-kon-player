@@ -1,9 +1,9 @@
 /**
- * Script to find collaboration live streams where エトソラ appears on other channels
+ * Script to find collaboration live streams where 儚牙紺 appears on other channels
  * 
  * Usage: npm run find-collab-live [count]
  * 
- * This script searches for videos with keywords "歌枠" AND "エトソラ" in the title and
+ * This script searches for videos with keywords "歌枠" AND "儚牙紺" in the title and
  * filters out videos from the channel specified in .env YOUTUBE_CHANNEL_ID.
  * Results are output to standard output.
  */
@@ -98,7 +98,7 @@ function formatDate(dateString) {
 async function searchCollabLives(count) {
   logger.log(`Searching for up to ${count} collaboration live streams...`);
   
-  const keywords = 'intitle:歌枠 intitle:エトソラ'; // This will perform an AND search in titles only
+  const keywords = 'intitle:歌枠 intitle:儚牙紺'; // This will perform an AND search in titles only
   let collabVideos = [];
   let nextPageToken = null;
   let totalProcessed = 0;
