@@ -3,5 +3,104 @@
   "title": "【歌枠】おうたのじかん【新人Vtuber 儚牙紺】",
   "start_datetime": "2022-04-19T08:42:36Z",
   "thumbnail_url": "https://i.ytimg.com/vi/JTrhoUoBl7o/maxresdefault.jpg",
-  "timestamps": []
+  "timestamps": [
+    {
+      "time": 889,
+      "original_time": "00:14:49",
+      "song_id": "aODXd7CI1ZG",
+      "comment_source": "comment",
+      "comment_date": "2025-10-02T07:00:52Z"
+    },
+    {
+      "time": 1426,
+      "original_time": "00:23:46",
+      "song_id": "Bj0J8PfFsL5",
+      "comment_source": "comment",
+      "comment_date": "2025-10-02T07:00:52Z"
+    },
+    {
+      "time": 1861,
+      "original_time": "00:31:01",
+      "song_id": "aJgtUun2RDZ",
+      "comment_source": "comment",
+      "comment_date": "2025-10-02T07:00:52Z"
+    },
+    {
+      "time": 2187,
+      "original_time": "00:36:27",
+      "song_id": "I-IRboLSsN4",
+      "comment_source": "comment",
+      "comment_date": "2025-10-02T07:00:52Z"
+    },
+    {
+      "time": 2572,
+      "original_time": "00:42:52",
+      "song_id": "yRTEnAFNQj4",
+      "comment_source": "comment",
+      "comment_date": "2025-10-02T07:00:52Z"
+    },
+    {
+      "time": 3110,
+      "original_time": "00:51:50",
+      "song_id": "L3Qyx9tF_tp",
+      "comment_source": "comment",
+      "comment_date": "2025-10-02T07:00:52Z"
+    },
+    {
+      "time": 3548,
+      "original_time": "00:59:08",
+      "song_id": "RkP7FHDjUWc",
+      "comment_source": "comment",
+      "comment_date": "2025-10-02T07:00:52Z"
+    },
+    {
+      "time": 4139,
+      "original_time": "01:08:59",
+      "song_id": "7alE7eG-r0u",
+      "comment_source": "comment",
+      "comment_date": "2025-10-02T07:00:52Z"
+    },
+    {
+      "time": 4553,
+      "original_time": "01:15:53",
+      "song_id": "tNiPq0UW8QP",
+      "comment_source": "comment",
+      "comment_date": "2025-10-02T07:00:52Z"
+    },
+    {
+      "time": 5061,
+      "original_time": "01:24:21",
+      "song_id": "LJX3ht0uA8T",
+      "comment_source": "comment",
+      "comment_date": "2025-10-02T07:00:52Z"
+    },
+    {
+      "time": 5832,
+      "original_time": "01:37:12",
+      "song_id": "jCtgPKJBkkg",
+      "comment_source": "comment",
+      "comment_date": "2025-10-02T07:00:52Z"
+    },
+    {
+      "time": 6456,
+      "original_time": "01:47:36",
+      "song_id": "0dTcpXqsiVD",
+      "comment_source": "comment",
+      "comment_date": "2025-10-02T07:00:52Z"
+    },
+    {
+      "time": 6822,
+      "original_time": "01:53:42",
+      "song_id": "xDJr0RC9suh",
+      "comment_source": "comment",
+      "comment_date": "2025-10-02T07:00:52Z"
+    },
+    {
+      "time": 7280,
+      "original_time": "02:01:20",
+      "song_id": "XOg5IZV0TN4",
+      "comment_source": "comment",
+      "comment_date": "2025-10-02T07:00:52Z"
+    }
+  ]
 }
