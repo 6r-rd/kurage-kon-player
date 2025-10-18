@@ -127,18 +127,19 @@ function convertTimeToSeconds(timeStr) {
  * 
  * 【タイムスタンプ処理の仕様】
  * 1. 摘要欄（description）のタイムスタンプ:
- *    - 0秒のタイムスタンプ（0:00, 00:00など）はスキップしない
+ *    - 0秒のタイムスタンプ（0:00, 00:00など）はデータとしては追加しないが、存在は記録する
  *    - 0秒のタイムスタンプの存在を使って、摘要欄のタイムスタンプがYouTubeのチャプターマーカーであるかを判定する
  *    - チャプターマーカーと判定された場合のみ、摘要欄のタイムスタンプを優先する
  * 
  * 2. コメント（comment）のタイムスタンプ:
- *    - 0秒のタイムスタンプはスキップする（通常、実際の曲ではなくイントロや説明を示すため）
+ *    - 0秒のタイムスタンプはスキップし、存在のみ記録する（通常、実際の曲ではなくイントロや説明を示すため）
  *    - 摘要欄にチャプターマーカーがない場合や、摘要欄にタイムスタンプがない場合に使用する
  */
 function parseTimestamps(text, source = 'unknown') {
   // Process line by line
   const lines = text.split('\n');
   const timestamps = [];
+  let hasZeroTimestampDetected = false;
   
   // Debug: Log all lines for inspection
   timestampLogger.debug(`Processing ${lines.length} lines of text`);
@@ -155,7 +156,7 @@ function parseTimestamps(text, source = 'unknown') {
     const timeRegex = /(\d{1,2}:)?(\d{1,2}):(\d{1,2})/;
     const timeMatch = line.match(timeRegex);
     
-      if (timeMatch) {
+    if (timeMatch) {
       // Extract the timestamp part
       const timeStartIndex = timeMatch.index;
       const timeEndIndex = timeMatch.index + timeMatch[0].length;
@@ -187,13 +188,12 @@ function parseTimestamps(text, source = 'unknown') {
         continue;
       }
       
-      // Skip 0-second timestamps only for comments
-      if (time === 0 && source === 'comment') {
-        timestampLogger.debug(`Skipping timestamp: ${originalTime} (zero seconds in comment)`);
+      // Skip 0-second timestamps for all sources but remember their presence
+      if (time === 0) {
+        hasZeroTimestampDetected = true;
+        timestampLogger.debug(`Skipping timestamp: ${originalTime} (zero seconds in ${source})`);
         continue;
       }
-      
-      // Note: We keep 0-second timestamps for descriptions to identify chapter markers
       
       // Try to find a delimiter (/ or -) in the text
       // Look for specific delimiter patterns with proper whitespace to avoid matching hyphens within words
@@ -243,6 +243,7 @@ function parseTimestamps(text, source = 'unknown') {
   }
   
   timestampLogger.log(`Found ${timestamps.length} timestamps in total`);
+  timestamps.hasZeroTimestamp = hasZeroTimestampDetected;
   return timestamps;
 }
 
@@ -423,6 +424,14 @@ function updateArtistsJson(artistsData) {
  * @returns {boolean} True if a zero timestamp is found
  */
 function hasZeroTimestamp(timestamps) {
+  if (!timestamps) {
+    return false;
+  }
+  
+  if (Object.prototype.hasOwnProperty.call(timestamps, 'hasZeroTimestamp')) {
+    return Boolean(timestamps.hasZeroTimestamp);
+  }
+  
   return timestamps.some(ts => 
     ts.time === 0 || 
     ts.original_time.match(/^(0:00|00:00|0:00:00|00:00:00)$/)
