@@ -128,13 +128,11 @@ describe('Timestamp Prioritization Logic', () => {
     
     // Verify that description timestamps were used
     expect(capturedVideoData).not.toBeNull();
-    expect(capturedVideoData.timestamps.length).toBeGreaterThan(0);
-    expect(capturedVideoData.timestamps[0].comment_source).toBe('description');
-    expect(capturedVideoData.timestamps[0].original_time).toBe('00:00');
-    
-    // Also verify that the second timestamp is correct
-    expect(capturedVideoData.timestamps[1].comment_source).toBe('description');
-    expect(capturedVideoData.timestamps[1].original_time).toBe('00:06:25');
+    expect(capturedVideoData.timestamps).toHaveLength(2);
+    expect(capturedVideoData.timestamps.every(ts => ts.comment_source === 'description')).toBe(true);
+    expect(capturedVideoData.timestamps[0].original_time).toBe('00:06:25');
+    expect(capturedVideoData.timestamps[1].original_time).toBe('00:20:38');
+    expect(capturedVideoData.timestamps.map(ts => ts.original_time)).not.toContain('00:00');
   });
   
   it('prioritizes comment timestamps when description has timestamps but no 0:00 timestamp', async () => {

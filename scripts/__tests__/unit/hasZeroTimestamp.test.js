@@ -2,6 +2,15 @@ import { describe, it, expect } from 'vitest';
 import { hasZeroTimestamp } from '../../updateVideoData.js';
 
 describe('hasZeroTimestamp', () => {
+  it('returns true when zero timestamp was detected but removed from parsed data', () => {
+    const timestamps = [
+      { time: 385, original_time: '00:06:25' },
+      { time: 1238, original_time: '00:20:38' }
+    ];
+    timestamps.hasZeroTimestamp = true;
+    expect(hasZeroTimestamp(timestamps)).toBe(true);
+  });
+  
   it('returns true when timestamps include 0:00', () => {
     const timestamps = [
       { time: 0, original_time: '0:00' },
