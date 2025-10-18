@@ -243,7 +243,16 @@ function parseTimestamps(text, source = 'unknown') {
   }
   
   timestampLogger.log(`Found ${timestamps.length} timestamps in total`);
-  timestamps.hasZeroTimestamp = hasZeroTimestampDetected;
+  
+  if (hasZeroTimestampDetected) {
+    Object.defineProperty(timestamps, 'hasZeroTimestamp', {
+      value: true,
+      enumerable: false,
+      configurable: true,
+      writable: false
+    });
+  }
+  
   return timestamps;
 }
 
