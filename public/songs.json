@@ -4192,22 +4192,30 @@
     {
       "song_id": "AdOdhkGI8Un",
       "title": "ジェーンは凍っていた",
-      "artist_ids": []
+      "artist_ids": [
+        "iSIRLQabGSs"
+      ]
     },
     {
       "song_id": "lU1mkrZV2rq",
       "title": "hp",
-      "artist_ids": []
+      "artist_ids": [
+        "qtRVj9TnIpP"
+      ]
     },
     {
       "song_id": "gSL0kVVDn7D",
       "title": "月影",
-      "artist_ids": []
+      "artist_ids": [
+        "hnr1vxQ2KSd"
+      ]
     },
     {
       "song_id": "_YHkvGUxqiA",
       "title": "だまって俺について来い",
-      "artist_ids": []
+      "artist_ids": [
+        "GdTsUoBbgKf"
+      ]
     }
   ]
 }
