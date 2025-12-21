@@ -2,13 +2,13 @@ import { describe, it, expect } from 'vitest';
 import { hasZeroTimestamp } from '../../updateVideoData.js';
 
 describe('hasZeroTimestamp', () => {
-  it('returns false when no zero timestamp is present even if a legacy flag exists', () => {
+  it('returns true when zero timestamp was detected but removed from parsed data', () => {
     const timestamps = [
       { time: 385, original_time: '00:06:25' },
       { time: 1238, original_time: '00:20:38' }
     ];
     timestamps.hasZeroTimestamp = true;
-    expect(hasZeroTimestamp(timestamps)).toBe(false);
+    expect(hasZeroTimestamp(timestamps)).toBe(true);
   });
   
   it('returns true when timestamps include 0:00', () => {
