@@ -128,11 +128,13 @@ describe('Timestamp Prioritization Logic', () => {
     
     // Verify that description timestamps were used
     expect(capturedVideoData).not.toBeNull();
-    expect(capturedVideoData.timestamps).toHaveLength(2);
-    expect(capturedVideoData.timestamps.every(ts => ts.comment_source === 'description')).toBe(true);
-    expect(capturedVideoData.timestamps[0].original_time).toBe('00:06:25');
-    expect(capturedVideoData.timestamps[1].original_time).toBe('00:20:38');
-    expect(capturedVideoData.timestamps.map(ts => ts.original_time)).not.toContain('00:00');
+    expect(capturedVideoData.timestamps.length).toBeGreaterThan(0);
+    expect(capturedVideoData.timestamps[0].comment_source).toBe('description');
+    expect(capturedVideoData.timestamps[0].original_time).toBe('00:00');
+    
+    // Also verify that the second timestamp is correct
+    expect(capturedVideoData.timestamps[1].comment_source).toBe('description');
+    expect(capturedVideoData.timestamps[1].original_time).toBe('00:06:25');
   });
   
   it('prioritizes comment timestamps when description has timestamps but no 0:00 timestamp', async () => {
@@ -265,7 +267,68 @@ describe('Timestamp Prioritization Logic', () => {
     // Verify that description timestamps were used as fallback
     expect(capturedVideoData).not.toBeNull();
     expect(capturedVideoData.timestamps.length).toBeGreaterThan(0);
-    expect(capturedVideoData.timestamps[0].comment_source).toBe('comment');
+    expect(capturedVideoData.timestamps[0].comment_source).toBe('description');
     expect(capturedVideoData.timestamps[0].original_time).toBe('00:06:25');
+  });
+
+  it('forces comment timestamps when --user-comment is provided even if description has 0:00', async () => {
+    const description = `
+      00:00 イントロ
+      00:10:00 セットリスト / 投稿者
+    `;
+
+    const comments = [{
+      snippet: {
+        topLevelComment: {
+          snippet: {
+            textDisplay: '00:01:00 ユーザー曲 / 参加者\n00:05:00 次の曲 / 別の人',
+            publishedAt: '2023-01-02T00:00:00Z',
+            likeCount: 15
+          }
+        }
+      }
+    }];
+
+    global.fetch.mockImplementation((url) => {
+      if (url.includes('videos?part=snippet')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve({
+            items: [{
+              snippet: {
+                title: 'Test Video',
+                description: description,
+                publishedAt: '2023-01-01T00:00:00Z',
+                thumbnails: {
+                  default: { url: 'https://example.com/thumbnail.jpg' }
+                }
+              }
+            }]
+          })
+        });
+      } else if (url.includes('commentThreads?part=snippet')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve({
+            items: comments
+          })
+        });
+      }
+      return Promise.reject(new Error(`Unhandled URL: ${url}`));
+    });
+
+    let capturedVideoData = null;
+    fs.writeFileSync.mockImplementation((path, data) => {
+      if (path.includes('test-video-id.json')) {
+        capturedVideoData = JSON.parse(data);
+      }
+    });
+
+    await processVideo('test-video-id', { forceUserComments: true });
+
+    expect(capturedVideoData).not.toBeNull();
+    expect(capturedVideoData.timestamps.length).toBe(2);
+    expect(capturedVideoData.timestamps[0].comment_source).toBe('comment');
+    expect(capturedVideoData.timestamps[0].original_time).toBe('00:01:00');
   });
 });

@@ -127,19 +127,18 @@ function convertTimeToSeconds(timeStr) {
  * 
  * 【タイムスタンプ処理の仕様】
  * 1. 摘要欄（description）のタイムスタンプ:
- *    - 0秒のタイムスタンプ（0:00, 00:00など）はデータとしては追加しないが、存在は記録する
+ *    - 0秒のタイムスタンプ（0:00, 00:00など）はスキップしない
  *    - 0秒のタイムスタンプの存在を使って、摘要欄のタイムスタンプがYouTubeのチャプターマーカーであるかを判定する
  *    - チャプターマーカーと判定された場合のみ、摘要欄のタイムスタンプを優先する
  * 
  * 2. コメント（comment）のタイムスタンプ:
- *    - 0秒のタイムスタンプはスキップし、存在のみ記録する（通常、実際の曲ではなくイントロや説明を示すため）
+ *    - 0秒のタイムスタンプはスキップする（通常、実際の曲ではなくイントロや説明を示すため）
  *    - 摘要欄にチャプターマーカーがない場合や、摘要欄にタイムスタンプがない場合に使用する
  */
 function parseTimestamps(text, source = 'unknown') {
   // Process line by line
   const lines = text.split('\n');
   const timestamps = [];
-  let hasZeroTimestampDetected = false;
   
   // Debug: Log all lines for inspection
   timestampLogger.debug(`Processing ${lines.length} lines of text`);
@@ -156,7 +155,7 @@ function parseTimestamps(text, source = 'unknown') {
     const timeRegex = /(\d{1,2}:)?(\d{1,2}):(\d{1,2})/;
     const timeMatch = line.match(timeRegex);
     
-    if (timeMatch) {
+      if (timeMatch) {
       // Extract the timestamp part
       const timeStartIndex = timeMatch.index;
       const timeEndIndex = timeMatch.index + timeMatch[0].length;
@@ -176,8 +175,8 @@ function parseTimestamps(text, source = 'unknown') {
         timestampLogger.debug(`  Using next line for content: "${remainingText}"`);
       }
       
-      // Skip timestamps that contain "告知" (announcement)
-      if (remainingText.includes('告知')) {
+      // Skip timestamps that contain "告知:" (announcement)
+      if (remainingText.includes('告知:')) {
         timestampLogger.debug(`Skipping timestamp: ${originalTime} (announcement)`);
         continue;
       }
@@ -188,12 +187,13 @@ function parseTimestamps(text, source = 'unknown') {
         continue;
       }
       
-      // Skip 0-second timestamps for all sources but remember their presence
-      if (time === 0) {
-        hasZeroTimestampDetected = true;
-        timestampLogger.debug(`Skipping timestamp: ${originalTime} (zero seconds in ${source})`);
+      // Skip 0-second timestamps only for comments
+      if (time === 0 && source === 'comment') {
+        timestampLogger.debug(`Skipping timestamp: ${originalTime} (zero seconds in comment)`);
         continue;
       }
+      
+      // Note: We keep 0-second timestamps for descriptions to identify chapter markers
       
       // Try to find a delimiter (/ or -) in the text
       // Look for specific delimiter patterns with proper whitespace to avoid matching hyphens within words
@@ -243,16 +243,6 @@ function parseTimestamps(text, source = 'unknown') {
   }
   
   timestampLogger.log(`Found ${timestamps.length} timestamps in total`);
-  
-  if (hasZeroTimestampDetected) {
-    Object.defineProperty(timestamps, 'hasZeroTimestamp', {
-      value: true,
-      enumerable: false,
-      configurable: true,
-      writable: false
-    });
-  }
-  
   return timestamps;
 }
 
@@ -321,26 +311,8 @@ function findOrCreateArtist(artistName, artists) {
  * @param {Array} songs - Existing songs
  * @returns {Object} Song ID and whether it was newly created
  */
-function findSongByTitleOnly(songTitle, songs) {
-  const normalizedTitle = songTitle.normalize('NFC').toLocaleLowerCase('ja');
-  
-  return songs.find(song => {
-    const songTitleNormalized = song.title.normalize('NFC').toLocaleLowerCase('ja');
-    if (songTitleNormalized === normalizedTitle) {
-      return true;
-    }
-    
-    if (!song.alternate_titles) {
-      return false;
-    }
-    
-    return song.alternate_titles.some(title =>
-      title.normalize('NFC').toLocaleLowerCase('ja') === normalizedTitle
-    );
-  });
-}
-
 function findOrCreateSong(songTitle, artistIds, songs) {
+  // Normalize song title for comparison
   const normalizedTitle = songTitle.normalize('NFC').toLocaleLowerCase('ja');
   
   // Check if song already exists
@@ -433,14 +405,6 @@ function updateArtistsJson(artistsData) {
  * @returns {boolean} True if a zero timestamp is found
  */
 function hasZeroTimestamp(timestamps) {
-  if (!timestamps) {
-    return false;
-  }
-  
-  if (Object.prototype.hasOwnProperty.call(timestamps, 'hasZeroTimestamp')) {
-    return Boolean(timestamps.hasZeroTimestamp);
-  }
-  
   return timestamps.some(ts => 
     ts.time === 0 || 
     ts.original_time.match(/^(0:00|00:00|0:00:00|00:00:00)$/)
@@ -448,12 +412,40 @@ function hasZeroTimestamp(timestamps) {
 }
 
 /**
+ * Parse CLI arguments for the update script
+ * @param {string[]} argv - process.argv array
+ * @returns {{ videoId: string | undefined, forceUserComments: boolean }}
+ */
+function parseCliArgs(argv) {
+  const args = argv.slice(2);
+  let videoId;
+  let forceUserComments = false;
+
+  for (const arg of args) {
+    if (arg === '--user-comment') {
+      forceUserComments = true;
+    } else if (!arg.startsWith('--') && !videoId) {
+      videoId = arg;
+    }
+  }
+
+  return { videoId, forceUserComments };
+}
+
+/**
  * Process video data and update JSON files
  * @param {string} videoId - YouTube video ID
+ * @param {Object} [options]
+ * @param {boolean} [options.forceUserComments=false] - If true, ignore description timestamps
  */
-async function processVideo(videoId) {
+async function processVideo(videoId, options = {}) {
   try {
+    const { forceUserComments = false } = options;
     logger.log(`Processing video: ${videoId}`);
+
+    if (forceUserComments) {
+      timestampLogger.log('Skipping description timestamps due to --user-comment option');
+    }
     
     // Fetch video details
     const videoResponse = await fetchVideoDetails(videoId);
@@ -470,17 +462,21 @@ async function processVideo(videoId) {
                          thumbnails.standard?.url || 
                          thumbnails.default.url;
     
-    // Parse timestamps from description
-    const descriptionTimestamps = parseTimestamps(description, 'description');
-    timestampLogger.log(`Found ${descriptionTimestamps.length} timestamps in description`);
+    // Parse timestamps from description unless forced to use comments
+    const descriptionTimestamps = forceUserComments ? [] : parseTimestamps(description, 'description');
+    if (!forceUserComments) {
+      timestampLogger.log(`Found ${descriptionTimestamps.length} timestamps in description`);
+    }
     
     // Check if description has a timestamp at 0:00 (indicating chapter markers)
-    const hasZeroTime = hasZeroTimestamp(descriptionTimestamps);
-    timestampLogger.log(`Description has zero timestamp: ${hasZeroTime}`);
+    const hasZeroTime = !forceUserComments && hasZeroTimestamp(descriptionTimestamps);
+    if (!forceUserComments) {
+      timestampLogger.log(`Description has zero timestamp: ${hasZeroTime}`);
+    }
     
     // Fetch comments if description doesn't have valid timestamps with 0:00 marker
     let commentTimestamps = [];
-    if (descriptionTimestamps.length === 0 || !hasZeroTime) {
+    if (forceUserComments || descriptionTimestamps.length === 0 || !hasZeroTime) {
       const comments = await fetchVideoComments(videoId);
       commentLogger.log(`Fetched ${comments.length} comments`);
       
@@ -527,14 +523,19 @@ async function processVideo(videoId) {
     // 1. 摘要欄に0秒のタイムスタンプがある場合（チャプターマーカーと判断）→ 摘要欄のタイムスタンプを使用
     // 2. 摘要欄に0秒のタイムスタンプがない場合 → コメントのタイムスタンプを使用（あれば）
     // 3. コメントにタイムスタンプがない場合 → 摘要欄のタイムスタンプを使用（フォールバック）
-    const allTimestamps = (descriptionTimestamps.length > 0 && hasZeroTime)
-      ? descriptionTimestamps 
-      : (commentTimestamps.length > 0 ? commentTimestamps : descriptionTimestamps);
+    const timestampSource = forceUserComments
+      ? 'comments (forced)'
+      : (descriptionTimestamps.length > 0 && hasZeroTime)
+        ? 'description'
+        : (commentTimestamps.length > 0 ? 'comments' : 'description (fallback)');
+
+    const allTimestamps = forceUserComments
+      ? commentTimestamps
+      : (descriptionTimestamps.length > 0 && hasZeroTime)
+        ? descriptionTimestamps 
+        : (commentTimestamps.length > 0 ? commentTimestamps : descriptionTimestamps);
     
-    timestampLogger.log(`Using ${allTimestamps.length} timestamps from ${
-      (descriptionTimestamps.length > 0 && hasZeroTime) ? 'description' : 
-      (commentTimestamps.length > 0 ? 'comments' : 'description (fallback)')
-    }`);
+    timestampLogger.log(`Using ${allTimestamps.length} timestamps from ${timestampSource}`);
     
     // Load existing data
     const songsData = loadSongs();
@@ -546,44 +547,35 @@ async function processVideo(videoId) {
     const newSongs = [];
     
     for (const timestamp of allTimestamps) {
-      const allKnownSongs = [...songsData.songs, ...newSongs];
-      const trimmedArtistField = (timestamp.artist_name || '').trim();
-      let artistIds = [];
+      // Check if artist name contains commas for multiple artists
+      const artistNames = timestamp.artist_name.includes(', ') || timestamp.artist_name.includes(',')
+        ? timestamp.artist_name.split(/,\s*/).map(name => name.trim())
+        : [timestamp.artist_name];
       
-      if (trimmedArtistField) {
-        const artistNames = trimmedArtistField.includes(', ') || trimmedArtistField.includes(',')
-          ? trimmedArtistField.split(/,\s*/).map(name => name.trim()).filter(Boolean)
-          : [trimmedArtistField];
+      // Find or create each artist and collect their IDs
+      const artistIds = [];
+      
+      for (const artistName of artistNames) {
+        const { artistId, isNew: isNewArtist } = findOrCreateArtist(
+          artistName, 
+          [...artistsData.artists, ...newArtists]
+        );
         
-        for (const artistName of artistNames) {
-          const { artistId, isNew: isNewArtist } = findOrCreateArtist(
-            artistName,
-            [...artistsData.artists, ...newArtists]
-          );
-          
-          if (!artistIds.includes(artistId)) {
-            artistIds.push(artistId);
-          }
-          
-          if (isNewArtist) {
-            newArtists.push({
-              artist_id: artistId,
-              name: artistName
-            });
-          }
-        }
-      } else {
-        const matchedSong = findSongByTitleOnly(timestamp.song_title, allKnownSongs);
+        artistIds.push(artistId);
         
-        if (matchedSong) {
-          artistIds = [...(matchedSong.artist_ids || [])];
+        if (isNewArtist) {
+          newArtists.push({
+            artist_id: artistId,
+            name: artistName
+          });
         }
       }
-
+      
+      // Find or create song
       const { songId, isNew: isNewSong } = findOrCreateSong(
         timestamp.song_title,
         artistIds,
-        allKnownSongs
+        [...songsData.songs, ...newSongs]
       );
       
       if (isNewSong) {
@@ -599,9 +591,7 @@ async function processVideo(videoId) {
         time: timestamp.time,
         original_time: timestamp.original_time,
         song_id: songId,
-        comment_source: (descriptionTimestamps.length > 0 && hasZeroTime && allTimestamps === descriptionTimestamps) 
-          ? 'description' 
-          : 'comment',
+        comment_source: timestampSource.startsWith('description') ? 'description' : 'comment',
         comment_date: timestamp.comment_date
       });
     }
@@ -642,12 +632,12 @@ async function processVideo(videoId) {
 // Main function
 async function main() {
   try {
-    const videoId = process.argv[2];
+    const { videoId, forceUserComments } = parseCliArgs(process.argv);
     if (!videoId) {
       throw new Error('Video ID is required as a command line argument');
     }
     
-    await processVideo(videoId);
+    await processVideo(videoId, { forceUserComments });
     
     // Generate videos list after processing the video
     logger.log('Generating videos list...');
@@ -684,7 +674,6 @@ export {
   convertTimeToSeconds,
   parseTimestamps,
   findOrCreateArtist,
-  findSongByTitleOnly,
   findOrCreateSong,
   hasZeroTimestamp,
   processVideo,
