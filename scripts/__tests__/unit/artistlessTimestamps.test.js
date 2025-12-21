@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeAll, afterAll } from 'vitest';
-import { parseTimestamps, findOrCreateSong } from '../../updateVideoData.js';
+import { parseTimestamps, findOrCreateSong, findSongByTitleOnly } from '../../updateVideoData.js';
 import * as generateVideosList from '../../generateVideosList.js';
 
 // Mock the generateVideosList function to prevent it from being called during tests
@@ -133,12 +133,19 @@ describe('Artistless Timestamps', () => {
       }
     ];
 
-    const exactMatch = findOrCreateSong('Clear', [], songs);
-    expect(exactMatch.isNew).toBe(false);
-    expect(exactMatch.songId).toBe('song-1');
+    const matchExact = findSongByTitleOnly('Clear', songs);
+    expect(matchExact?.song_id).toBe('song-1');
 
-    const altMatch = findOrCreateSong('Platina', [], songs);
-    expect(altMatch.isNew).toBe(false);
-    expect(altMatch.songId).toBe('song-3');
+    const matchAlt = findSongByTitleOnly('Platina', songs);
+    expect(matchAlt?.song_id).toBe('song-3');
+
+    const { songId, isNew } = findOrCreateSong(
+      'Clear',
+      matchExact?.artist_ids ?? [],
+      songs
+    );
+
+    expect(isNew).toBe(false);
+    expect(songId).toBe('song-1');
   });
 });
