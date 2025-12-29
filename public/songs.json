@@ -4233,24 +4233,18 @@
       ]
     },
     {
-      "song_id": "P2Wt6bNG29T",
-      "title": "words/Aimer",
-      "artist_ids": []
-    },
-    {
       "song_id": "RWpJKC4ZIB4",
-      "title": "Esperanza/西野カナ",
-      "artist_ids": []
+      "title": "Esperanza",
+      "artist_ids": [
+        "BwS6ll_R5bf"
+      ]
     },
     {
       "song_id": "Zkie7yhG4D1",
-      "title": "愛の愛の星/the briliant green",
-      "artist_ids": []
-    },
-    {
-      "song_id": "7Xb5nBMHfH5",
-      "title": "ロミオとシンデレラ/doriko",
-      "artist_ids": []
+      "title": "愛の愛の星",
+      "artist_ids": [
+        "sdDDpsaFBln"
+      ]
     }
   ]
 }
