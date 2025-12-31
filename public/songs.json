@@ -671,7 +671,9 @@
       "song_id": "Z43fVOwNxZX",
       "title": "初恋",
       "artist_ids": [
-        "TD4sLbQq_7R"
+        "TD4sLbQq_7R",
+        "AcgrVaQpzGE",
+        "Bcxrv4XAhhn"
       ]
     },
     {
@@ -4244,6 +4246,49 @@
       "title": "愛の愛の星",
       "artist_ids": [
         "sdDDpsaFBln"
+      ]
+    },
+    {
+      "song_id": "JinS9yASjKq",
+      "title": "ワタリドリ",
+      "artist_ids": [
+        "kCaOInuwOm0"
+      ]
+    },
+    {
+      "song_id": "tzsLKm2LFL3",
+      "title": "#あくあ色ぱれっと",
+      "artist_ids": [
+        "RMkr4qKw9rV"
+      ]
+    },
+    {
+      "song_id": "xNqCF4BmSAW",
+      "title": "アンインストール",
+      "artist_ids": [
+        "-lBeD3-OS6J"
+      ]
+    },
+    {
+      "song_id": "AB8A-38uI0C",
+      "title": "雨とペトラ",
+      "artist_ids": [
+        "qcECb6eyQtk"
+      ]
+    },
+    {
+      "song_id": "QziLvYHRTF6",
+      "title": "月光",
+      "artist_ids": [
+        "62EEJMMl1CN",
+        "YSceYhlonUS"
+      ]
+    },
+    {
+      "song_id": "jbRwCYaJlS_",
+      "title": "drop pop candy",
+      "artist_ids": [
+        "PXxnSs8oDSY"
       ]
     }
   ]

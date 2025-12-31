@@ -214,7 +214,11 @@
     },
     {
       "artist_id": "TD4sLbQq_7R",
-      "name": "神はサイコロを振らない, アユニ・D, n-buna"
+      "name": "神はサイコロを振らない"
+    },
+    {
+      "artist_id": "AcgrVaQpzGE",
+      "name": "アユニ・D"
     },
     {
       "artist_id": "ZXls2jQHvt7",
@@ -1171,6 +1175,18 @@
     {
       "artist_id": "BwS6ll_R5bf",
       "name": "西野カナ"
+    },
+    {
+      "artist_id": "RMkr4qKw9rV",
+      "name": "湊あくあ"
+    },
+    {
+      "artist_id": "-lBeD3-OS6J",
+      "name": "石川智晶"
+    },
+    {
+      "artist_id": "kCaOInuwOm0",
+      "name": "[Alexandros]"
     }
   ]
 }
