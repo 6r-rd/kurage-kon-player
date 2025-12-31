@@ -671,7 +671,9 @@
       "song_id": "Z43fVOwNxZX",
       "title": "初恋",
       "artist_ids": [
-        "TD4sLbQq_7R"
+        "TD4sLbQq_7R",
+        "AcgrVaQpzGE",
+        "Bcxrv4XAhhn"
       ]
     },
     {
@@ -4272,6 +4274,21 @@
       "title": "雨とペトラ",
       "artist_ids": [
         "qcECb6eyQtk"
+      ]
+    },
+    {
+      "song_id": "QziLvYHRTF6",
+      "title": "月光",
+      "artist_ids": [
+        "62EEJMMl1CN",
+        "YSceYhlonUS"
+      ]
+    },
+    {
+      "song_id": "jbRwCYaJlS_",
+      "title": "drop pop candy",
+      "artist_ids": [
+        "PXxnSs8oDSY"
       ]
     }
   ]
