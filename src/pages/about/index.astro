@@ -1,55 +1,14 @@
 ---
 import PlayerLayout from "../../layouts/PlayerLayout.astro";
 import { Sidebar } from "../../components/Sidebar";
-import type { ArtistData, SongData, VideoData } from "../../lib/types";
 
-import artistsJson from "../../../public/artists.json";
-import songsJson from "../../../public/songs.json";
-
-const videoModules = import.meta.glob("../../../public/videos/*.json", {
-  eager: true,
-});
-const videos = Object.values(videoModules) as VideoData[];
-
-const artists = artistsJson.artists as ArtistData[];
-const songs = songsJson.songs as SongData[];
-
-const playCounts: Record<string, number> = {};
-videos.forEach((video) => {
-  video.timestamps.forEach((timestamp) => {
-    const songId = timestamp.song_id;
-    playCounts[songId] = (playCounts[songId] || 0) + 1;
-  });
-});
-
-const enrichedSongs = songs.map((song) => {
-  const artistNames = song.artist_ids
-    .map((id) => {
-      const artist = artists.find((a) => a.artist_id === id);
-      return artist ? artist.name : "";
-    })
-    .filter(Boolean);
-
-  return {
-    ...song,
-    artist_names: artistNames,
-    artist_name: artistNames.join(", ") || "",
-    count: playCounts[song.song_id] || 0,
-  };
-});
-
-const artistsMap: Record<string, string> = {};
-artists.forEach((artist) => {
-  artistsMap[artist.artist_id] = artist.name;
-});
+const sidebarDataUrl = `${import.meta.env.BASE_URL}/api/sidebar-data.json`;
 ---
 
 <PlayerLayout title="このサイトについて | くらこんプレイヤー">
   <Sidebar
     slot="sidebar"
-    videos={videos}
-    songs={enrichedSongs}
-    artists={artistsMap}
+    dataUrl={sidebarDataUrl}
     client:load
   />
 

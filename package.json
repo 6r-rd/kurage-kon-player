@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "NODE_ENV=development astro dev",
-    "build": "node scripts/generateVideosList.js && astro build",
+    "build": "node scripts/generateVideosList.js && node scripts/generateSidebarData.js && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "update-video": "node scripts/updateVideoData.js",

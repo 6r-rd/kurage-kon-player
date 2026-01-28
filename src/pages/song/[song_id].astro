@@ -32,6 +32,7 @@ export async function getStaticPaths() {
 // Get the song ID and data from the params and props
 const { song_id } = Astro.params;
 const { songData } = Astro.props;
+const sidebarDataUrl = `${import.meta.env.BASE_URL}/api/sidebar-data.json`;
 
 // Import JSON files
 const artistsJson = await import("../../../public/artists.json");
@@ -46,39 +47,6 @@ const videos = Object.values(videoModules) as VideoData[];
 // Process data
 const artists = artistsJson.artists as ArtistData[];
 const songs = songsJson.songs as SongData[];
-
-// Calculate song play counts
-const playCounts: Record<string, number> = {};
-videos.forEach((video) => {
-  video.timestamps.forEach((timestamp) => {
-    const songId = timestamp.song_id;
-    playCounts[songId] = (playCounts[songId] || 0) + 1;
-  });
-});
-
-// Enrich song data with artist names and play counts
-const enrichedSongs = songs.map((song) => {
-  // Handle multiple artist IDs
-  const artistNames = song.artist_ids
-    .map((id) => {
-      const artist = artists.find((a) => a.artist_id === id);
-      return artist ? artist.name : "";
-    })
-    .filter(Boolean); // Remove empty strings
-
-  return {
-    ...song,
-    artist_names: artistNames,
-    artist_name: artistNames.join(", ") || "-",
-    count: playCounts[song.song_id] || 0,
-  };
-});
-
-// Create artists map for the sidebar
-const artistsMap: Record<string, string> = {};
-artists.forEach((artist) => {
-  artistsMap[artist.artist_id] = artist.name;
-});
 
 // Get the current song
 const song = songs.find((s) => s.song_id === song_id);
@@ -122,9 +90,7 @@ if (song) {
 <PlayerLayout title="Song Detail" ogTitle={ogTitle}>
   <Sidebar
     slot="sidebar"
-    videos={videos}
-    songs={enrichedSongs}
-    artists={artistsMap}
+    dataUrl={sidebarDataUrl}
     defaultTab="songs"
     client:load
   />
