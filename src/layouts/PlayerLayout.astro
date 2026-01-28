@@ -3,9 +3,21 @@ import "../styles/global.css";
 
 interface Props {
   title?: string;
+  ogTitle?: string;
+  ogImage?: string;
 }
 
-const { title = "Kurage Kon player" } = Astro.props;
+const defaultTitle = "くらこんプレイヤー";
+const defaultOgTitle = import.meta.env.PUBLIC_OG_TITLE || defaultTitle;
+const baseUrl = import.meta.env.BASE_URL || "/";
+const normalizedBaseUrl = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
+const defaultOgImage = `${normalizedBaseUrl}images/og.webp`;
+
+const {
+  title = defaultTitle,
+  ogTitle = defaultOgTitle,
+  ogImage = defaultOgImage,
+} = Astro.props;
 ---
 
 <html lang="ja">
@@ -22,6 +34,12 @@ const { title = "Kurage Kon player" } = Astro.props;
     />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/webp" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={ogTitle} />
+    <meta name="twitter:image" content={ogImage} />
   </head>
   <body
     class="min-h-screen bg-gray-50 dark:bg-gray-900 overflow-x-hidden max-w-screen"

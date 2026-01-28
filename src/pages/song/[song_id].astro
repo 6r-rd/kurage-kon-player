@@ -91,6 +91,10 @@ const artistNames = song
       .filter(Boolean)
   : [];
 const artistName = artistNames.length > 0 ? artistNames.join(", ") : "-";
+const defaultOgTitle = import.meta.env.PUBLIC_OG_TITLE || "くらこんプレイヤー";
+const ogTitle = song?.title
+  ? `${song.title} / ${defaultOgTitle}`
+  : defaultOgTitle;
 
 // Get videos containing this song
 const songVideos: Array<VideoData & { timestamp: VideoTimestamp }> = [];
@@ -115,7 +119,7 @@ if (song) {
 }
 ---
 
-<PlayerLayout title="Song Detail">
+<PlayerLayout title="Song Detail" ogTitle={ogTitle}>
   <Sidebar
     slot="sidebar"
     videos={videos}
