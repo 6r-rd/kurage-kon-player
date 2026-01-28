@@ -1,4 +1,4 @@
-# Kurage Kon player
+# くらこんプレイヤー
 
 Vsinger「[儚牙紺](https://www.youtube.com/@KurageKon)」による YouTube ライブ配信のアーカイブ動画を再生するための非公式 Web サイトとその運用ツールです。[EtoSora player](https://github.com/6r-rd/etosora-player) をテンプレートとして作成しています。
 
@@ -18,7 +18,7 @@ Demo: https://6r-rd.github.io/kurage-kon-player/
 
 ### 注意事項
 
-Kurage Kon player では **[YouTube Data API](https://developers.google.com/youtube/v3/getting-started)** を使用して過去の配信データを取得し、タイムスタンプ付きで曲の情報を表示します。動画は **[YouTube IFrame Player API](https://developers.google.com/youtube/iframe_api_reference)** を利用して埋め込みます。
+くらこんプレイヤーでは **[YouTube Data API](https://developers.google.com/youtube/v3/getting-started)** を使用して過去の配信データを取得し、タイムスタンプ付きで曲の情報を表示します。動画は **[YouTube IFrame Player API](https://developers.google.com/youtube/iframe_api_reference)** を利用して埋め込みます。
 
 そのため、以下の場合は動画を取得できません。
 
@@ -116,12 +116,10 @@ GitHub Actions で配信データを取得した後、`public/` 以下の JSON �
 このプロジェクトは GitHub Pages を使用して自動的にデプロイするように設定されています。
 
 1. **設定の確認**
-
    - `astro.config.mjs` ファイルで `base` パスがリポジトリ名と一致していることを確認します
    - 例: リポジトリ名が `kurage-kon-player` の場合、`base: '/kurage-kon-player'` と設定します
 
 2. **GitHub リポジトリの設定**
-
    - リポジトリの "Settings" > "Pages" で、ソースを "GitHub Actions" に設定します
    - 初回デプロイ後、GitHub Pages の URL が表示されます（通常は `https://username.github.io/repository-name/`）
 
