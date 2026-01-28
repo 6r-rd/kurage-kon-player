@@ -47,6 +47,7 @@ export async function getStaticPaths() {
 const { video_id } = Astro.params;
 const startTimeParam = Astro.url.searchParams.get("t");
 const startTime = startTimeParam ? parseInt(startTimeParam, 10) : undefined;
+const sidebarDataUrl = `${import.meta.env.BASE_URL}/api/sidebar-data.json`;
 
 // ビルド時は logger が定義されていない可能性があるため、try-catch で囲む
 try {
@@ -113,39 +114,6 @@ const videos = Object.values(videoModules) as VideoData[];
 // Find the current video
 const currentVideo = videos.find((v) => v.video_id === video_id) || null;
 
-// Calculate song play counts
-const playCounts: Record<string, number> = {};
-videos.forEach((video) => {
-  video.timestamps.forEach((timestamp) => {
-    const songId = timestamp.song_id;
-    playCounts[songId] = (playCounts[songId] || 0) + 1;
-  });
-});
-
-// Enrich song data with artist names and play counts
-const enrichedSongs = songs.map((song) => {
-  // Handle multiple artist IDs
-  const artistNames = song.artist_ids
-    .map((id) => {
-      const artist = artists.find((a) => a.artist_id === id);
-      return artist ? artist.name : "";
-    })
-    .filter(Boolean); // Remove empty strings
-
-  return {
-    ...song,
-    artist_names: artistNames,
-    artist_name: artistNames.join(", ") || "-",
-    count: playCounts[song.song_id] || 0,
-  };
-});
-
-// Create artists map for the sidebar
-const artistsMap: Record<string, string> = {};
-artists.forEach((artist) => {
-  artistsMap[artist.artist_id] = artist.name;
-});
-
 // Enrich timestamps with song and artist info
 let enrichedTimestamps: Array<
   VideoTimestamp & { song_title: string; artist_name: string }
@@ -180,9 +148,7 @@ if (currentVideo) {
 <PlayerLayout title="くらこんプレイヤー">
   <Sidebar
     slot="sidebar"
-    videos={videos}
-    songs={enrichedSongs}
-    artists={artistsMap}
+    dataUrl={sidebarDataUrl}
     client:load
   />
   <div class="space-y-4">

@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useLayoutEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -24,6 +24,10 @@ const logger = createNamespacedLogger('ui:sidebar');
 const searchLogger = createChildLogger(logger, 'search');
 const sortLogger = createChildLogger(logger, 'sort');
 
+const useIsomorphicLayoutEffect =
+  typeof window === "undefined" ? useEffect : useLayoutEffect;
+const sidebarCacheKey = "kurage-kon-sidebar-data-v1";
+
 interface SongItem {
   song_id: string;
   title: string;
@@ -46,10 +50,14 @@ interface VideoItem {
   }>;
 }
 
-interface SidebarProps {
+interface SidebarData {
   songs: SongItem[];
   videos: VideoItem[];
   artists: Record<string, string>;
+}
+
+interface SidebarProps {
+  dataUrl: string;
   onSelectVideo?: (videoId: string) => void;
   onSelectSong?: (songId: string) => void;
   defaultTab?: "archives" | "songs";
@@ -57,7 +65,14 @@ interface SidebarProps {
 
 import { registerSwipeCallback } from "@/lib/swipeDetection";
 
-export function Sidebar({ songs, videos, artists, onSelectVideo, onSelectSong, defaultTab = "archives" }: SidebarProps) {
+export function Sidebar({
+  dataUrl,
+  onSelectVideo,
+  onSelectSong,
+  defaultTab = "archives",
+}: SidebarProps) {
+  const [data, setData] = useState<SidebarData | null>(null);
+  const [dataError, setDataError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState(defaultTab);
   const [fromDate, setFromDate] = useState<Date | undefined>(undefined);
@@ -67,6 +82,63 @@ export function Sidebar({ songs, videos, artists, onSelectVideo, onSelectSong, d
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [hasHydrated, setHasHydrated] = useState(false);
+
+  useIsomorphicLayoutEffect(() => {
+    if (data || typeof window === "undefined") {
+      return;
+    }
+
+    const cached = sessionStorage.getItem(sidebarCacheKey);
+    if (!cached) {
+      return;
+    }
+
+    try {
+      const payload = JSON.parse(cached) as SidebarData;
+      setData(payload);
+    } catch (error) {
+      sessionStorage.removeItem(sidebarCacheKey);
+      logger.warn("Failed to parse cached sidebar data", error);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadData = async () => {
+      try {
+        const response = await fetch(dataUrl, { cache: "force-cache" });
+        if (!response.ok) {
+          throw new Error(`Failed to load sidebar data: ${response.status}`);
+        }
+        const payload = (await response.json()) as SidebarData;
+        if (isMounted) {
+          setData(payload);
+          setDataError(null);
+          if (typeof window !== "undefined") {
+            sessionStorage.setItem(sidebarCacheKey, JSON.stringify(payload));
+          }
+        }
+      } catch (error) {
+        logger.error("Failed to load sidebar data", error);
+        if (isMounted) {
+          setDataError("サイドバーのデータ読み込みに失敗しました。");
+          setData({ songs: [], videos: [], artists: {} });
+        }
+      }
+    };
+
+    loadData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [dataUrl]);
+
+  const songs = data?.songs ?? [];
+  const videos = data?.videos ?? [];
+  const artists = data?.artists ?? {};
+  const isLoading = !data && !dataError;
   
   // Prevent keyboard from appearing when sidebar is opened
   const handleSheetOpenChange = (open: boolean) => {
@@ -366,6 +438,9 @@ export function Sidebar({ songs, videos, artists, onSelectVideo, onSelectSong, d
   const sidebarContent = (
     <>
       <div className="px-4 py-4 space-y-4">
+        {dataError && (
+          <p className="text-sm text-destructive">{dataError}</p>
+        )}
         <Input
           placeholder="検索..."
           value={searchQuery}
@@ -420,33 +495,46 @@ export function Sidebar({ songs, videos, artists, onSelectVideo, onSelectSong, d
           
           <ScrollArea className="h-[calc(100vh-16rem)]">
             <div className="space-y-2 p-2">
-              {sortedVideos.map((video) => (
-                <div
-                  key={video.video_id}
-                  onClick={() => onSelectVideo ? onSelectVideo(video.video_id) : window.location.href = `${import.meta.env.BASE_URL}/video/${video.video_id}`}
-                  className="block cursor-pointer"
-                >
-                  <Card className="overflow-hidden transition-colors hover:bg-muted/50">
-                    <div className="w-full h-auto overflow-hidden">
-                      <img
-                        src={video.thumbnail_url}
-                        alt={video.title}
-                        className="w-full object-contain"
-                        loading="lazy"
-                      />
-                    </div>
-                    <CardContent className="p-3">
-                      <h3 className="line-clamp-2 text-sm font-medium">
-                        {video.title}
-                      </h3>
-                      <p className="text-xs text-muted-foreground">
-                        {new Date(video.start_datetime).toLocaleDateString("ja-JP")}
-                      </p>
-                    </CardContent>
-                  </Card>
-                </div>
-              ))}
-              {filteredVideos.length === 0 && (
+              {isLoading ? (
+                Array.from({ length: 6 }).map((_, index) => (
+                  <div
+                    key={`video-skeleton-${index}`}
+                    className="h-28 rounded-md border bg-muted/40 animate-pulse"
+                  />
+                ))
+              ) : (
+                sortedVideos.map((video) => (
+                  <div
+                    key={video.video_id}
+                    onClick={() =>
+                      onSelectVideo
+                        ? onSelectVideo(video.video_id)
+                        : (window.location.href = `${import.meta.env.BASE_URL}/video/${video.video_id}`)
+                    }
+                    className="block cursor-pointer"
+                  >
+                    <Card className="overflow-hidden transition-colors hover:bg-muted/50">
+                      <div className="w-full h-auto overflow-hidden">
+                        <img
+                          src={video.thumbnail_url}
+                          alt={video.title}
+                          className="w-full object-contain"
+                          loading="lazy"
+                        />
+                      </div>
+                      <CardContent className="p-3">
+                        <h3 className="line-clamp-2 text-sm font-medium">
+                          {video.title}
+                        </h3>
+                        <p className="text-xs text-muted-foreground">
+                          {new Date(video.start_datetime).toLocaleDateString("ja-JP")}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                ))
+              )}
+              {!isLoading && filteredVideos.length === 0 && (
                 <p className="text-center text-sm text-muted-foreground py-4">
                   動画が見つかりませんでした
                 </p>
@@ -481,68 +569,81 @@ export function Sidebar({ songs, videos, artists, onSelectVideo, onSelectSong, d
                 </div>
               </div>
               
-              {sortedSongs.map((song) => (
-                <div 
-                  key={song.song_id}
-                  className="grid grid-cols-[1fr_60px] gap-2 px-4 py-2 hover:bg-muted/50 cursor-pointer border-b"
-                  onClick={() => onSelectSong ? onSelectSong(song.song_id) : window.location.href = `${import.meta.env.BASE_URL}/song/${song.song_id}`}
-                >
-                  <div>
-                    <div className="font-medium flex items-center">
-                      {song.title}
-                      {song.description && (
-                        <HoverPopover
-                          side="right"
-                          align="start"
-                          contentClassName="max-w-[350px] p-4 break-words"
-                          onContentClick={(e: React.MouseEvent) => {
-                            e.stopPropagation();
-                            const firstUrl = extractFirstUrl(song.description || '');
-                            if (firstUrl) {
-                              window.open(firstUrl, '_blank', 'noopener,noreferrer');
+              {isLoading ? (
+                Array.from({ length: 12 }).map((_, index) => (
+                  <div
+                    key={`song-skeleton-${index}`}
+                    className="h-12 rounded-md border bg-muted/40 animate-pulse mb-2"
+                  />
+                ))
+              ) : (
+                sortedSongs.map((song) => (
+                  <div 
+                    key={song.song_id}
+                    className="grid grid-cols-[1fr_60px] gap-2 px-4 py-2 hover:bg-muted/50 cursor-pointer border-b"
+                    onClick={() =>
+                      onSelectSong
+                        ? onSelectSong(song.song_id)
+                        : (window.location.href = `${import.meta.env.BASE_URL}/song/${song.song_id}`)
+                    }
+                  >
+                    <div>
+                      <div className="font-medium flex items-center">
+                        {song.title}
+                        {song.description && (
+                          <HoverPopover
+                            side="right"
+                            align="start"
+                            contentClassName="max-w-[350px] p-4 break-words"
+                            onContentClick={(e: React.MouseEvent) => {
+                              e.stopPropagation();
+                              const firstUrl = extractFirstUrl(song.description || '');
+                              if (firstUrl) {
+                                window.open(firstUrl, '_blank', 'noopener,noreferrer');
+                              }
+                            }}
+                            content={
+                              <p className="text-sm whitespace-normal">
+                                {formatDescription(song.description || '')}
+                              </p>
                             }
-                          }}
-                          content={
-                            <p className="text-sm whitespace-normal">
-                              {formatDescription(song.description || '')}
-                            </p>
+                          >
+                            <span className="inline-block ml-2 cursor-pointer">
+                              <Info className="h-4 w-4 text-blue-500" />
+                            </span>
+                          </HoverPopover>
+                        )}
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        {(() => {
+                          // Always look up each artist_id in the artists map
+                          if (song.artist_ids && song.artist_ids.length > 0) {
+                            const names = song.artist_ids.map(id => artists[id] || "").filter(Boolean);
+                            return names.length > 0 ? names.join(", ") : "";
+                          } 
+                          // Fallback to artist_names if available
+                          else if (song.artist_names && song.artist_names.length > 0) {
+                            return song.artist_names.join(", ");
                           }
-                        >
-                          <span className="inline-block ml-2 cursor-pointer">
-                            <Info className="h-4 w-4 text-blue-500" />
-                          </span>
-                        </HoverPopover>
-                      )}
+                          // Fallback to artist_name if available
+                          else if (song.artist_name) {
+                            return song.artist_name;
+                          } 
+                          // Final fallback
+                          else {
+                            return "";
+                          }
+                        })()}
+                      </div>
                     </div>
-                    <div className="text-sm text-muted-foreground">
-                      {(() => {
-                        // Always look up each artist_id in the artists map
-                        if (song.artist_ids && song.artist_ids.length > 0) {
-                          const names = song.artist_ids.map(id => artists[id] || "").filter(Boolean);
-                          return names.length > 0 ? names.join(", ") : "";
-                        } 
-                        // Fallback to artist_names if available
-                        else if (song.artist_names && song.artist_names.length > 0) {
-                          return song.artist_names.join(", ");
-                        }
-                        // Fallback to artist_name if available
-                        else if (song.artist_name) {
-                          return song.artist_name;
-                        } 
-                        // Final fallback
-                        else {
-                          return "";
-                        }
-                      })()}
+                    <div className="text-right self-center">
+                      {filteredSongCounts[song.song_id] || 0}
                     </div>
                   </div>
-                  <div className="text-right self-center">
-                    {filteredSongCounts[song.song_id] || 0}
-                  </div>
-                </div>
-              ))}
+                ))
+              )}
               
-              {filteredSongs.length === 0 && (
+              {!isLoading && filteredSongs.length === 0 && (
                 <p className="text-center text-sm text-muted-foreground py-4">
                   曲が見つかりませんでした
                 </p>
