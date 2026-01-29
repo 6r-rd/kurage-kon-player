@@ -64,7 +64,7 @@ function generateSidebarData() {
   logger.log(`Generated sidebar-data.json with ${videos.length} videos`);
 }
 
-if (import.meta.url.endsWith("generateSidebarData.js")) {
+if (import.meta.url.endsWith("generateSidebarData.js") && !process.env.VITEST) {
   generateSidebarData();
 }
 
