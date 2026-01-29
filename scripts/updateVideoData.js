@@ -13,6 +13,7 @@ import * as path from 'path';
 import { fileURLToPath } from 'url';
 import { generateArtistId, generateSongId } from './generateId.js';
 import { generateVideosList } from './generateVideosList.js';
+import { generateSidebarData } from './generateSidebarData.js';
 import { createNamespacedLogger, createChildLogger } from './debug.js';
 
 // スクリプト用のロガーを作成
@@ -667,6 +668,10 @@ async function main() {
     // Generate videos list after processing the video
     logger.log('Generating videos list...');
     generateVideosList();
+
+    // Generate sidebar data to keep song counts in sync
+    logger.log('Generating sidebar data...');
+    generateSidebarData();
     
   } catch (error) {
     logger.error('Error:', error);

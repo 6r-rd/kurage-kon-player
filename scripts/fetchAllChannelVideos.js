@@ -10,6 +10,7 @@ import * as path from 'path';
 import { fileURLToPath } from 'url';
 import { execSync } from 'child_process';
 import { generateVideosList } from './generateVideosList.js';
+import { generateSidebarData } from './generateSidebarData.js';
 import { createNamespacedLogger } from './debug.js';
 import { loadExcludedVideoIds } from './excludedVideoIds.js';
 
@@ -196,6 +197,10 @@ async function main() {
     if (successCount > 0) {
       logger.log('Generating videos list...');
       generateVideosList();
+
+      // Generate sidebar data to keep song counts in sync
+      logger.log('Generating sidebar data...');
+      generateSidebarData();
     }
     
   } catch (error) {
