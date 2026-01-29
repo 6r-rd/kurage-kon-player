@@ -26,7 +26,7 @@ const sortLogger = createChildLogger(logger, 'sort');
 
 const useIsomorphicLayoutEffect =
   typeof window === "undefined" ? useEffect : useLayoutEffect;
-const sidebarCacheKey = "kurage-kon-sidebar-data-v1";
+const sidebarCacheKey = "kurage-kon-sidebar-data-v2";
 
 interface SongItem {
   song_id: string;
@@ -107,7 +107,7 @@ export function Sidebar({
 
     const loadData = async () => {
       try {
-        const response = await fetch(dataUrl, { cache: "force-cache" });
+        const response = await fetch(dataUrl, { cache: "no-cache" });
         if (!response.ok) {
           throw new Error(`Failed to load sidebar data: ${response.status}`);
         }
