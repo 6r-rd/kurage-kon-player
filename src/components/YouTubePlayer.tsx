@@ -6,6 +6,7 @@ import { HoverPopover } from "@/components/ui/hover-popover";
 import { Progress } from "@/components/ui/progress";
 import { Info } from "lucide-react";
 import { createNamespacedLogger } from "@/lib/debug";
+import { getDescriptionPreview } from "@/lib/descriptionPreview";
 
 // YouTubePlayer コンポーネント用のロガーを作成
 const logger = createNamespacedLogger('ui:player');
@@ -254,31 +255,6 @@ export function YouTubePlayer({ videoId, timestamps, startTime: propStartTime }:
     };
   }, [startTime, jumpToTimestamp]);
 
-
-  // 最初の URL を抽出する関数
-  const extractFirstUrl = (text: string): string | null => {
-    if (!text) return null;
-    const urlRegex = /(https?:\/\/[^\s]+)/g;
-    const match = text.match(urlRegex);
-    return match ? match[0] : null;
-  };
-  
-  // URL を短く表示する関数
-  const formatDescription = (text: string): string => {
-    if (!text) return '';
-    
-    return text.replace(/(https?:\/\/[^\s]+)/g, (url) => {
-      try {
-        // URL を短く表示（例：https://example.com/...）
-        const urlObj = new URL(url);
-        return `${urlObj.origin}/...`;
-      } catch (e) {
-        // 無効な URL の場合は元のテキストを返す
-        return url;
-      }
-    });
-  };
-
   return (
     <div className="flex flex-col space-y-4">
       {/* YouTube Player */}
@@ -319,8 +295,12 @@ export function YouTubePlayer({ videoId, timestamps, startTime: propStartTime }:
             </TableRow>
           </TableHeader>
           <TableBody>
-            {timestamps.map((timestamp, index) => (
-              timestamp.description ? (
+            {timestamps.map((timestamp, index) => {
+              const descriptionPreview = timestamp.description
+                ? getDescriptionPreview(timestamp.description)
+                : null;
+
+              return descriptionPreview ? (
                 <TableRow 
                   key={index}
                   className={`cursor-pointer relative group hover:bg-muted/50 ${currentSongIndex === index ? 'bg-primary/10' : ''}`}
@@ -332,18 +312,29 @@ export function YouTubePlayer({ videoId, timestamps, startTime: propStartTime }:
                     <HoverPopover
                       side="left"
                       align="start"
-                      contentClassName="max-w-[350px] p-4 break-words"
+                      contentClassName="max-w-[350px] p-0"
                       onContentClick={(e: React.MouseEvent) => {
                         e.stopPropagation();
-                        const firstUrl = extractFirstUrl(timestamp.description || '');
-                        if (firstUrl) {
-                          window.open(firstUrl, '_blank', 'noopener,noreferrer');
+                        if (descriptionPreview.url) {
+                          window.open(descriptionPreview.url, "_blank", "noopener,noreferrer");
                         }
                       }}
                       content={
-                        <p className="text-sm whitespace-normal">
-                          {formatDescription(timestamp.description || '')}
-                        </p>
+                        <div className="overflow-hidden rounded-md">
+                          {descriptionPreview.text && (
+                            <p className="px-3 py-2 text-sm whitespace-normal leading-relaxed break-words">
+                              {descriptionPreview.text}
+                            </p>
+                          )}
+                          {descriptionPreview.youtubeThumbnailUrl && (
+                            <img
+                              src={descriptionPreview.youtubeThumbnailUrl}
+                              alt="YouTube thumbnail"
+                              className="block w-full object-cover"
+                              loading="lazy"
+                            />
+                          )}
+                        </div>
                       }
                     >
                       <span className="inline-block ml-2 cursor-pointer">
@@ -364,8 +355,8 @@ export function YouTubePlayer({ videoId, timestamps, startTime: propStartTime }:
                   <TableCell>{timestamp.song_title || `Song ${index + 1}`}</TableCell>
                   <TableCell className="hidden md:table-cell">{timestamp.artist_name || ''}</TableCell>
                 </TableRow>
-              )
-            ))}
+              );
+            })}
             {timestamps.length === 0 && (
               <TableRow>
                 <TableCell colSpan={3} className="text-center py-4 text-muted-foreground">
