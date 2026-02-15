@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/select";
 import { SimpleDatePicker } from "@/components/ui/simple-date-picker";
 import { createNamespacedLogger, createChildLogger } from "@/lib/debug";
+import { getDescriptionPreview } from "@/lib/descriptionPreview";
 
 // Sidebar コンポーネント用のロガーを作成
 const logger = createNamespacedLogger('ui:sidebar');
@@ -187,30 +188,6 @@ export function Sidebar({
     const unregister = registerSwipeCallback(() => handleSheetOpenChange(true));
     return unregister;
   }, [isMobile]);
-
-  // 最初の URL を抽出する関数
-  const extractFirstUrl = (text: string): string | null => {
-    if (!text) return null;
-    const urlRegex = /(https?:\/\/[^\s]+)/g;
-    const match = text.match(urlRegex);
-    return match ? match[0] : null;
-  };
-  
-  // URL を短く表示する関数
-  const formatDescription = (text: string): string => {
-    if (!text) return '';
-    
-    return text.replace(/(https?:\/\/[^\s]+)/g, (url) => {
-      try {
-        // URL を短く表示（例：https://example.com/...）
-        const urlObj = new URL(url);
-        return `${urlObj.origin}/...`;
-      } catch (e) {
-        // 無効な URL の場合は元のテキストを返す
-        return url;
-      }
-    });
-  };
 
   // Normalize text for search (as per spec: Unicode NFC + toLowerCase)
   const normalizeText = (text: string) => {
@@ -577,70 +554,87 @@ export function Sidebar({
                   />
                 ))
               ) : (
-                sortedSongs.map((song) => (
-                  <div 
-                    key={song.song_id}
-                    className="grid grid-cols-[1fr_60px] gap-2 px-4 py-2 hover:bg-muted/50 cursor-pointer border-b"
-                    onClick={() =>
-                      onSelectSong
-                        ? onSelectSong(song.song_id)
-                        : (window.location.href = `${import.meta.env.BASE_URL}/song/${song.song_id}`)
-                    }
-                  >
-                    <div>
-                      <div className="font-medium flex items-center">
-                        {song.title}
-                        {song.description && (
-                          <HoverPopover
-                            side="right"
-                            align="start"
-                            contentClassName="max-w-[350px] p-4 break-words"
-                            onContentClick={(e: React.MouseEvent) => {
-                              e.stopPropagation();
-                              const firstUrl = extractFirstUrl(song.description || '');
-                              if (firstUrl) {
-                                window.open(firstUrl, '_blank', 'noopener,noreferrer');
+                sortedSongs.map((song) => {
+                  const descriptionPreview = song.description
+                    ? getDescriptionPreview(song.description)
+                    : null;
+
+                  return (
+                    <div 
+                      key={song.song_id}
+                      className="grid grid-cols-[1fr_60px] gap-2 px-4 py-2 hover:bg-muted/50 cursor-pointer border-b"
+                      onClick={() =>
+                        onSelectSong
+                          ? onSelectSong(song.song_id)
+                          : (window.location.href = `${import.meta.env.BASE_URL}/song/${song.song_id}`)
+                      }
+                    >
+                      <div>
+                        <div className="font-medium flex items-center">
+                          {song.title}
+                          {descriptionPreview && (
+                            <HoverPopover
+                              side="right"
+                              align="start"
+                              contentClassName="max-w-[350px] p-0"
+                              onContentClick={(e: React.MouseEvent) => {
+                                e.stopPropagation();
+                                if (descriptionPreview.url) {
+                                  window.open(descriptionPreview.url, "_blank", "noopener,noreferrer");
+                                }
+                              }}
+                              content={
+                                <div className="overflow-hidden rounded-md">
+                                  {descriptionPreview.text && (
+                                    <p className="px-3 py-2 text-sm whitespace-normal leading-relaxed break-words">
+                                      {descriptionPreview.text}
+                                    </p>
+                                  )}
+                                  {descriptionPreview.youtubeThumbnailUrl && (
+                                    <img
+                                      src={descriptionPreview.youtubeThumbnailUrl}
+                                      alt="YouTube thumbnail"
+                                      className="block w-full object-cover"
+                                      loading="lazy"
+                                    />
+                                  )}
+                                </div>
                               }
-                            }}
-                            content={
-                              <p className="text-sm whitespace-normal">
-                                {formatDescription(song.description || '')}
-                              </p>
+                            >
+                              <span className="inline-block ml-2 cursor-pointer">
+                                <Info className="h-4 w-4 text-blue-500" />
+                              </span>
+                            </HoverPopover>
+                          )}
+                        </div>
+                        <div className="text-sm text-muted-foreground">
+                          {(() => {
+                            // Always look up each artist_id in the artists map
+                            if (song.artist_ids && song.artist_ids.length > 0) {
+                              const names = song.artist_ids.map(id => artists[id] || "").filter(Boolean);
+                              return names.length > 0 ? names.join(", ") : "";
+                            } 
+                            // Fallback to artist_names if available
+                            else if (song.artist_names && song.artist_names.length > 0) {
+                              return song.artist_names.join(", ");
                             }
-                          >
-                            <span className="inline-block ml-2 cursor-pointer">
-                              <Info className="h-4 w-4 text-blue-500" />
-                            </span>
-                          </HoverPopover>
-                        )}
+                            // Fallback to artist_name if available
+                            else if (song.artist_name) {
+                              return song.artist_name;
+                            } 
+                            // Final fallback
+                            else {
+                              return "";
+                            }
+                          })()}
+                        </div>
                       </div>
-                      <div className="text-sm text-muted-foreground">
-                        {(() => {
-                          // Always look up each artist_id in the artists map
-                          if (song.artist_ids && song.artist_ids.length > 0) {
-                            const names = song.artist_ids.map(id => artists[id] || "").filter(Boolean);
-                            return names.length > 0 ? names.join(", ") : "";
-                          } 
-                          // Fallback to artist_names if available
-                          else if (song.artist_names && song.artist_names.length > 0) {
-                            return song.artist_names.join(", ");
-                          }
-                          // Fallback to artist_name if available
-                          else if (song.artist_name) {
-                            return song.artist_name;
-                          } 
-                          // Final fallback
-                          else {
-                            return "";
-                          }
-                        })()}
+                      <div className="text-right self-center">
+                        {filteredSongCounts[song.song_id] || 0}
                       </div>
                     </div>
-                    <div className="text-right self-center">
-                      {filteredSongCounts[song.song_id] || 0}
-                    </div>
-                  </div>
-                ))
+                  );
+                })
               )}
               
               {!isLoading && filteredSongs.length === 0 && (
