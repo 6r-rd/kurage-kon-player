@@ -4325,19 +4325,11 @@
       ]
     },
     {
-      "song_id": "Yn1WiiJOhSB",
-      "title": "プラトニック・ラブ",
-      "artist_ids": []
-    },
-    {
-      "song_id": "vtCeJyFi1RR",
-      "title": "鳴呼、素晴らしきニャン生",
-      "artist_ids": []
-    },
-    {
       "song_id": "2itLrtXG9W7",
       "title": "悲しみの向こうへ",
-      "artist_ids": []
+      "artist_ids": [
+        "BYqyLmvbLQy"
+      ]
     }
   ]
 }
