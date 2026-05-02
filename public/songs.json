@@ -4334,22 +4334,16 @@
     {
       "song_id": "oeuaqDv98Vm",
       "title": "LilaS",
-      "artist_ids": []
-    },
-    {
-      "song_id": "CgTphVuxhyL",
-      "title": "夜明けと蛍-Piano Ver.-",
-      "artist_ids": []
+      "artist_ids": [
+        "ZYZ5htnlXGo"
+      ]
     },
     {
       "song_id": "BaKVM7oUfGB",
       "title": "ゴーゴー幽霊船",
-      "artist_ids": []
-    },
-    {
-      "song_id": "6YR39w5-fqt",
-      "title": "晚餐歌",
-      "artist_ids": []
+      "artist_ids": [
+        "h8AJHKAtN89"
+      ]
     }
   ]
 }
