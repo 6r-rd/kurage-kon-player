@@ -4397,12 +4397,16 @@
     {
       "song_id": "TVI9sxyssPJ",
       "title": "詩書きとコーヒー",
-      "artist_ids": []
+      "artist_ids": [
+        "D-4fiaZ1OVe"
+      ]
     },
     {
       "song_id": "eK8KXAgQ_i2",
       "title": "YELL",
-      "artist_ids": []
+      "artist_ids": [
+        "jLlunIXM_ZE"
+      ]
     }
   ]
 }
