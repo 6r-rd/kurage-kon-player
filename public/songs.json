@@ -4275,7 +4275,8 @@
       "title": "もう寝なさい",
       "artist_ids": [
         "PmedVdHcNb6"
-      ]
+      ],
+      "description": "歌ってみたあります https://www.youtube.com/watch?v=_xcTligrChs"
     },
     {
       "song_id": "k9OXI3BCmqs",
@@ -4420,7 +4421,9 @@
     {
       "song_id": "Y0niFk8EHAA",
       "title": "Into the Sky",
-      "artist_ids": []
+      "artist_ids": [
+        "lH0R-L45j3I"
+      ]
     }
   ]
 }
