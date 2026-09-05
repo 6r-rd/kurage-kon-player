@@ -4466,12 +4466,9 @@
     {
       "song_id": "jnCQjZ5yUvK",
       "title": "少年は教室がきらいだったのだ",
-      "artist_ids": []
-    },
-    {
-      "song_id": "v2wJ-sgv5SD",
-      "title": "was especially impressive and also very cute!",
-      "artist_ids": []
+      "artist_ids": [
+        "cD86XC4boMv"
+      ]
     }
   ]
 }
