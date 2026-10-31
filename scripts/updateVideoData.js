@@ -657,8 +657,20 @@ async function processVideo(videoId, options = {}) {
 async function main() {
   try {
     const args = process.argv.slice(2);
-    const useUserComment = args.includes('--user-comment');
-    const videoId = args.find(arg => !arg.startsWith('-'));
+    let useUserComment = false;
+    let videoId;
+    let parseOptions = true;
+
+    for (const arg of args) {
+      if (parseOptions && arg === '--') {
+        parseOptions = false;
+      } else if (parseOptions && arg === '--user-comment') {
+        useUserComment = true;
+      } else if (videoId === undefined) {
+        videoId = arg;
+      }
+    }
+
     if (!videoId) {
       throw new Error('Video ID is required as a command line argument');
     }

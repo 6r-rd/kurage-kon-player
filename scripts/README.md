@@ -37,6 +37,19 @@ When running via npm:
 npm run update-video -- VIDEO_ID --user-comment
 ```
 
+Video IDs beginning with `-` are also supported. Use npm's `--` to forward the ID:
+
+```bash
+npm run update-video -- -_IJmq8xm0A
+npm run update-video -- -_IJmq8xm0A --user-comment
+```
+
+The script also accepts `--` to end option parsing:
+
+```bash
+node scripts/updateVideoData.js --user-comment -- -_IJmq8xm0A
+```
+
 The script will:
 
 1. Fetch video details from the YouTube API
